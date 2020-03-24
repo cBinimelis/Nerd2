@@ -1,0 +1,94 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using NerdCore.Models
+@using NerdCore.Data
+@using NerdCore.Controllers
+@inject AnimeService objAnime
+@inject NavigationManager NavigationManager
+
+
+
+
+
+@*@if (aniObj != null)
+{
+    <div class="uk-section-default uk-margin">
+        <div class="uk-section">
+            <div class=" uk-container-expand">
+                <div class="uk-flex uk-flex-center" uk-grid>
+                    @foreach (var anime in aniObj)
+                    {
+                        <div>
+                            <div class="uk-card uk-card-default uk-width-medium uk-height-medium uk-margin-small">
+                                <div class="uk-card-media-top image-wrapper">
+                                    <img class="img-card" src="img/anime/@anime.Imagen" />
+                                </div>
+                                <div class="uk-card-body uk-padding-small">
+                                    <h5 class="uk-card-title uk-align-center uk-text-truncate">@anime.Nombre</h5>
+                                    <a data-toggle="modal" data-target="#animeModal" style="content: 'detalles'" class="uk-button uk-button-default btn-detalles" @onclick="(e => SelectAnime(anime.IdAnime))"></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (selectedAnime != null)
+{
+    int ID = @selectedAnime.IdAnime;
+
+
+
+
+    Modal: modalYT
+    <div class="modal fade" id="animeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="card bg-dark text-white">
+                    <img style="opacity:30%" src="img/anime/@selectedAnime.Imagen" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h23 class="">@selectedAnime.Nombre</h23>
+                        <p class="card-text">@selectedAnime.Sinopsis</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="uk-button uk-button-default1" style="content: 'Ver'">Ver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+@code {
+
+    List<Anime> aniObj;
+    protected override async Task OnInitializedAsync()
+    {
+        aniObj = await Task.Run(() => objAnime.GetAnimes());
+    }
+
+
+
+    Anime selectedAnime;
+    int selectedAnimeId;
+
+    void SelectAnime(int AnimeId)
+    {
+        selectedAnimeId = AnimeId;
+        selectedAnime = aniObj.First(x => x.IdAnime == AnimeId);
+    }
+
+    private void MostrarDetalles(int ID)
+    {
+        NavigationManager.NavigateTo("Animes/Details/" + ID, true);
+    }
+}*@
+
+

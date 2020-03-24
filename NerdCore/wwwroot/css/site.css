@@ -1,0 +1,498 @@
+﻿.checked {
+    color: orange;
+}
+
+.fa-star {
+    cursor: pointer;
+}
+
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+.card-columns .card:hover .card-img {
+    opacity: 1;
+    -webkit-transform-style: preserve-3d;
+}
+
+.card-columns .card-body {
+    height: 100px;
+    font-family: 'Nunito', sans-serif;
+    background: #fbfafd;
+}
+
+.card-columns .card-img {
+    height: 330px;
+    vertical-align: bottom;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    opacity: .8;
+}
+
+.modal .card-img {
+    height: 500px;
+    vertical-align: bottom;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.card-columns .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(37,33,82,.12), 0 4px 8px rgba(37,33,82,.06);
+}
+
+.card-footer {
+    background: #fbfafd;
+}
+
+
+a.navbar-brand {
+    white-space: normal;
+    font-family: 'Yellowtail', cursive;
+    font-size: xx-large;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #252152;
+    border-color: #252152;
+}
+
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #e9a8a6;
+        border-color: #e9a8a6;
+    }
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+p {
+    font-family: 'Nunito', sans-serif;
+}
+
+h1 {
+    font-family: 'Nunito', sans-serif;
+}
+
+ul {
+    font-family: 'Nunito', sans-serif;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    font-family: 'Nunito', sans-serif;
+}
+/*Backgrounds*/
+.bg-navbar {
+    background: -webkit-linear-gradient(110deg, #e9a8a6 60%, #252152 60%);
+    background: -o-linear-gradient(110deg, #e9a8a6 60%, #252152 60%);
+    background: -moz-linear-gradient(110deg, #e9a8a6 60%, #252152 60%);
+    background: linear-gradient(110deg, #e9a8a6 60%, #252152 60%);
+}
+
+.bg-footer {
+    background: -webkit-linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
+    background: -o-linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
+    background: -moz-linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
+    background: linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
+}
+
+
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f1f1f1;
+}
+
+.uk-accordion-content {
+    text-align: right
+}
+
+.uk-navbar-nav > li > a {
+    position: relative;
+    color: #000;
+    text-decoration: none;
+}
+
+    .uk-navbar-nav > li > a:hover {
+        color: #000;
+    }
+
+    .uk-navbar-nav > li > a:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #000;
+        visibility: hidden;
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+        -webkit-transition: all 0.3s ease-in-out 0s;
+        transition: all 0.3s ease-in-out 0s;
+    }
+
+    .uk-navbar-nav > li > a:hover:before {
+        visibility: visible;
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+    }
+
+/*-------------------------------------------*/
+
+.background {
+    background: no-repeat center center fixed;
+    background-size: cover;
+    display: block;
+    left: -15px;
+    top: -15px;
+    bottom: -15px;
+    position: fixed;
+    right: -15px;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.1);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    margin: -5px;
+}
+
+.boton-ver {
+    background: #87cefa;
+    border: none;
+    color: #f2f2f2;
+    position: relative;
+    box-sizing: border-box;
+    transition: all 250ms ease;
+}
+
+
+
+
+.boton-kuki {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    max-width: 250px;
+    text-transform: uppercase;
+    border: 1px solid currentColor;
+    color: #f19bff;
+    text-decoration: none;
+}
+
+    .boton-kuki:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -50px;
+        bottom: 0;
+        left: 0;
+        border-right: 50px solid transparent;
+        border-bottom: 80px solid #f19bff;
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+        z-index: -1;
+        transition: 0.5s ease-in-out;
+    }
+
+    .boton-kuki:hover {
+        color: white;
+    }
+
+        .boton-kuki:hover:before {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+}
+
+#loader {
+    height: 200px;
+    margin-top: 50px;
+    z-index: 1500;
+}
+
+.circle {
+    display: inline-block;
+    background-color: #f19bff;
+    height: 15px;
+    width: 15px;
+    border-radius: 25px;
+}
+
+#ball-1 {
+    -webkit-animation-name: bounce;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-duration: 1.2s;
+    -webkit-animation-iteration-count: infinite;
+}
+
+#ball-2 {
+    -webkit-animation-name: bounce;
+    -webkit-animation-delay: 0.1s;
+    -webkit-animation-duration: 1.2s;
+    -webkit-animation-iteration-count: infinite;
+}
+
+#ball-3 {
+    -webkit-animation-name: bounce;
+    -webkit-animation-delay: 0.2s;
+    -webkit-animation-duration: 1.2s;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(23px);
+    }
+
+    60% {
+        transform: translateY(-25px);
+    }
+
+    80% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#loader-wrapper .loader-section {
+    position: fixed;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: #ffc1fd;
+    z-index: 1000;
+}
+
+    #loader-wrapper .loader-section.section-left {
+        left: 0;
+    }
+
+    #loader-wrapper .loader-section.section-right {
+        right: 0;
+    }
+
+.loaded #loader-wrapper .loader-section.section-left {
+    -webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+
+.loaded #loader-wrapper .loader-section.section-right {
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    transform: translateX(100%);
+}
+
+.loaded #loader {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loaded #loader {
+    opacity: 0;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.loaded #loader-wrapper .loader-section.section-right,
+.loaded #loader-wrapper .loader-section.section-left {
+    -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.loaded #loader-wrapper {
+    -webkit-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%);
+    -webkit-transition: all 0.3s 1s ease-out;
+    transition: all 0.3s 1s ease-out;
+}
+
+.count {
+}
+
+.seccion-diagonal {
+    position: relative;
+    height: auto;
+    overflow: hidden;
+}
+
+
+.fondo-diagonal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: skewY(-3deg);
+    transform-origin: top left;
+}
+
+
+.image-wrapper {
+    position: relative;
+    padding-bottom: 56.2%;
+}
+
+    .image-wrapper .img-card{
+        position: absolute;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+.btn--ver {
+    font-weight: 700;
+    font-size: 17px;
+    transition: .5s ease;
+    color: white;
+    padding-right: 0;
+    background-color: #87cefa;
+    -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 70%, 90% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 100%, 0 100%);
+}
+
+    .btn--ver:hover {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
+    }
+
+    .btn--ver:after {
+        content: "\ef4e";
+        color: white;
+        font-weight: 100;
+        font-size: 20px;
+        font-family: Icofont;
+        display: inline-block;
+        position: relative;
+        right: -55px;
+        transition: all 0.2s ease;
+    }
+
+    .btn--ver:hover:after {
+        margin: -5px 15px;
+        right: 0px;
+    }
+
+.btn--detalles {
+    font-weight: 700;
+    font-size: 17px;
+    transition: .5s ease;
+    color: white;
+    padding-right: 0;
+    background-color: #f19bff;
+    -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 70%, 90% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 100%, 0 100%);
+}
+
+    .btn--detalles:hover {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
+    }
+
+    .btn--detalles:after {
+        content: "\efda";
+        color: white;
+        font-weight: 100;
+        font-size: 20px;
+        font-family: Icofont;
+        display: inline-block;
+        position: relative;
+        right: -55px;
+        transition: all 0.2s ease;
+    }
+
+    .btn--detalles:hover:after {
+        margin: -5px 15px;
+        right: 0px;
+    }

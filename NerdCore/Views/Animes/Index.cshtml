@@ -1,0 +1,106 @@
+﻿@model IEnumerable<NerdCore.Models.Anime>
+@using NerdCore.Components
+
+@{
+    ViewData["Title"] = "Anime";
+}
+
+<h1>Index</h1>
+
+
+
+
+
+<component type="typeof(AnimeList)" render-mode="ServerPrerendered" />
+
+
+
+<script src="_framework/blazor.server.js"></script>
+
+
+@*
+
+
+
+    @(await Html.RenderComponentAsync<AnimeList>(RenderMode.ServerPrerendered, new {Ani = Model }))
+
+
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lanzamiento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Temporadas)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CapitulosTotales)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Imagen)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OtrosGeneros)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Activo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdEstadoSerieNavigation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdGeneroAnimeNavigation)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                        @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Sinopsis)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Lanzamiento)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Temporadas)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CapitulosTotales)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Imagen)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OtrosGeneros)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Activo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdEstadoSerieNavigation.Descripcion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdGeneroAnimeNavigation.Descripcion)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.IdAnime">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.IdAnime">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.IdAnime">Delete</a>
+                                    </td>
+                                </tr>
+                        }
+                            </tbody>
+                </table>
+*@

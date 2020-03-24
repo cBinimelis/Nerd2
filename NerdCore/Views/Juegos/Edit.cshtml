@@ -1,0 +1,74 @@
+﻿@model NerdCore.Models.Juegos
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Juegos</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdJuego" />
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sinopsis" class="control-label"></label>
+                <input asp-for="Sinopsis" class="form-control" />
+                <span asp-validation-for="Sinopsis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdDesarrollador" class="control-label"></label>
+                <select asp-for="IdDesarrollador" class="form-control" asp-items="ViewBag.IdDesarrollador"></select>
+                <span asp-validation-for="IdDesarrollador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lanzamiento" class="control-label"></label>
+                <input asp-for="Lanzamiento" class="form-control" />
+                <span asp-validation-for="Lanzamiento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Imagen" class="control-label"></label>
+                <input asp-for="Imagen" class="form-control" />
+                <span asp-validation-for="Imagen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdGeneroJuego" class="control-label"></label>
+                <select asp-for="IdGeneroJuego" class="form-control" asp-items="ViewBag.IdGeneroJuego"></select>
+                <span asp-validation-for="IdGeneroJuego" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OtrosGeneros" class="control-label"></label>
+                <input asp-for="OtrosGeneros" class="form-control" />
+                <span asp-validation-for="OtrosGeneros" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdEstadoJuego" class="control-label"></label>
+                <select asp-for="IdEstadoJuego" class="form-control" asp-items="ViewBag.IdEstadoJuego"></select>
+                <span asp-validation-for="IdEstadoJuego" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Activo" /> @Html.DisplayNameFor(model => model.Activo)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
