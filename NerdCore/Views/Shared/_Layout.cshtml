@@ -9,13 +9,8 @@
     <link href="~/css/uikit.min.css" rel="stylesheet" />
     <link href="~/css/icofont.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <script src="~/js/jquery-3.4.1.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="~/js/uikit.min.js"></script>
-    <script src="~/js/uikit-icons.min.js"></script>
 </head>
 <body>
 
@@ -48,7 +43,7 @@
                 </div>
                 <div class="uk-navbar-right uk-hidden@m">
                     <a asp-area="" asp-controller="Home" asp-action="Index" class="uk-navbar-item uk-logo">
-                        <img src="~/img/Logo.ico" style="height: 100%" alt="Logo" />
+                        <img src="img/Cat.ico" style="height: 100%" alt="Logo" />
                     </a>
                 </div>
 
@@ -92,40 +87,13 @@
         </div>
     </div>
 
+    @RenderBody()
 
-
-    @*<header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NerdCore</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Animes" asp-action="Index">Anime</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Mangas" asp-action="Index">Manga</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Juegos" asp-action="Index">Juegos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Peliculas" asp-action="Index">Privacy</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>*@
-
-    <main role="main">
-        @RenderBody()
-    </main>
-
+<script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/uikit.min.js"></script>
+    <script src="~/js/uikit-icons.min.js"></script>
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - NerdCore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

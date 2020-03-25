@@ -48,12 +48,14 @@
                             </tbody>
                         </table>
                     }
+                    <div class="uk-height-medium">
+                        <img class="uk-position-bottom-center" src="img/Logo.png" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 
 @if (selectedAnime != null)
@@ -82,12 +84,12 @@
 
 }
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    @code {
+@code {
 
-        List<VAnime> aniObj;
-protected override async Task OnInitializedAsync()
+    List<VAnime> aniObj;
+    protected override async Task OnInitializedAsync()
     {
         aniObj = await Task.Run(() => objAnime.GetAnimes());
     }
@@ -107,7 +109,7 @@ protected override async Task OnInitializedAsync()
     {
         NavigationManager.NavigateTo("Animes/Details/" + ID, true);
     }
-    }
+}
 
 
 

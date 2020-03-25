@@ -1,13 +1,73 @@
 ﻿@model NerdCore.Models.Anime
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = @Html.DisplayFor(model => model.Nombre);
 }
+<br />
+<br />
+<br />
+<div class="uk-section-default">
+    <img id="imagen" class="background" src="~/img/anime/@Html.DisplayFor(model => model.Imagen)" alt="Imagen del anime" />
 
+    <div class="uk-container uk-card uk-card-default uk-align-center uk-animation-slide-bottom">
+        <div class="uk-card-body uk-card-medium">
+            <h1 class="uk-text-center uk-heading-line">
+                <label>@Html.DisplayFor(model => model.Nombre)</label>
+            </h1>
+            <img id="imagen" class="uk-align-center uk-height-medium@m uk-margin-remove-adjacent" src="~/img/anime/@Html.DisplayFor(model => model.Imagen)" alt="Imagen del anime" />
+            <div class="uk-child-width-1-2@m" uk-grid>
+                <div>
+                    <p>
+                        <b>Temporadas: </b>
+                        <label>@Html.DisplayFor(model => model.Temporadas)</label>
+                    </p>
+                    <p>
+                        <b>Capitulos: </b>
+                        <label>@Html.DisplayFor(model => model.CapitulosTotales)</label>
+                    </p>
+                    <p>
+                        <b>Lanzamiento: </b>
+                        <label>@Html.DisplayFor(model => model.Lanzamiento)</label>
+                    </p>
+                    <p>
+                        <b>Genero: </b>
+                        <label>@Html.DisplayFor(model => model.IdGeneroAnimeNavigation.Descripcion)</label>
+                    </p>
+                    <p>
+                        <b>Otros Generos: </b>
+                        <label>@Html.DisplayFor(model => model.OtrosGeneros)</label>
+                    </p>
+                    <p>
+                        <b>Estado: </b>
+                        <label>@Html.DisplayFor(model => model.IdEstadoSerieNavigation.Descripcion)</label>
+                    </p>
+                </div>
+                <div>
+                    <label class="uk-text-justify uk-align-center">@Html.DisplayFor(model => model.Sinopsis)</label>
+                </div>
+            </div>
+            <label ID="APersonalA" CssClass="uk-card-badge uk-text-justify uk-label uk-width-auto"></label>
+        </div>
+
+
+        <div class="uk-card-footer">
+            <a asp-action="Edit" asp-route-id="@Model.IdAnime">Edit</a> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<!--
 <h1>Details</h1>
 
 <div>
     <h4>Anime</h4>
+
+
+
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -72,7 +132,4 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.IdAnime">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    -->
