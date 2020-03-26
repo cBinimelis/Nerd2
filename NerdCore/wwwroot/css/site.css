@@ -496,3 +496,69 @@ body {
         margin: -5px 15px;
         right: 0px;
     }
+
+.btn--editar {
+    font-weight: 700;
+    font-size: 17px;
+    transition: .5s ease;
+    color: white;
+    padding-right: 0;
+    background: repeating-linear-gradient(90deg, #f19bff, #ba55d3);
+    -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 70%, 90% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 100%, 0 100%);
+}
+
+    .btn--editar:hover {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
+    }
+
+    .btn--editar:after {
+        content: "\ef10";
+        color: white;
+        font-weight: 100;
+        font-size: 20px;
+        font-family: Icofont;
+        display: inline-block;
+        position: relative;
+        right: -55px;
+        transition: all 0.2s ease;
+    }
+
+    .btn--editar:hover:after {
+        margin: -5px 15px;
+        right: 0px;
+    }
+
+.btn--volver {
+    font-weight: 700;
+    font-size: 17px;
+    transition: .5s ease;
+    color: white;
+    padding-right: 0;
+    background: repeating-linear-gradient(90deg, #ba55d3, #87cefa);
+    -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 70%, 90% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 100%, 0 100%);
+}
+
+    .btn--volver:hover {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
+    }
+
+    .btn--volver:after {
+        content: "\ef10";
+        color: white;
+        font-weight: 100;
+        font-size: 20px;
+        font-family: Icofont;
+        display: inline-block;
+        position: relative;
+        right: -55px;
+        transition: all 0.2s ease;
+    }
+
+    .btn--volver:hover:after {
+        margin: -5px 15px;
+        right: 0px;
+    }
