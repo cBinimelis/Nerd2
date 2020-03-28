@@ -4,8 +4,6 @@
 @inject AnimeService objAnime
 @inject NavigationManager NavigationManager
 
-
-
 <div class="uk-section-default">
     <div id="test-filter" class="uk-section uk-light uk-background-cover uk-overflow-hidden uk-flex uk-flex-top" uk-parallax="bgy: -100; sepia: 100;" style="background-image: url(../img/AnimeGuestBG.jpg); height: 70vh">
         <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical" uk-parallax="target: #test-filter; blur: 0,10;">
@@ -14,38 +12,47 @@
             </div>
         </div>
     </div>
-</div><div class="uk-section-default uk-margin">
+</div>
+
+
+<div class="uk-section-default uk-margin">
     <div class="uk-section">
         <div class=" uk-container">
             <div class="uk-card uk-card-default">
                 <div class="uk-card-body uk-overflow-auto">
                     @if (aniObj != null)
                     {
-                        <table class="uk-table  uk-table-middle uk-table-divider">
-                            <thead>
+                    <table class="uk-table  uk-table-middle uk-table-divider">
+                        <thead>
+                            <tr>
+                                <th class="uk-width-medium">Nombre de la Serie</th>
+                                <th>Lanzamiento</th>
+                                <th>Capitulos</th>
+                                <th>Genero</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var anime in GetItemsToShow())
+                            {
                                 <tr>
-                                    <th class="uk-width-medium">Nombre de la Serie</th>
-                                    <th>Lanzamiento</th>
-                                    <th>Capitulos</th>
-                                    <th>Genero</th>
-                                    <th>Estado</th>
-                                    <th></th>
+                                    <td>@anime.Nombre</td>
+                                    <td class="uk-visible@m"> @anime.Lanzamiento </td>
+                                    <td class="uk-visible@m">@anime.Capitulos </td>
+                                    <td class="uk-visible@m"> @anime.Genero </td>
+                                    <td class="uk-visible@m"> @anime.Estado </td>
+                                    <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var anime in aniObj)
-                                {
-                                    <tr>
-                                        <td>@anime.Nombre</td>
-                                        <td class="uk-visible@m"> @anime.Lanzamiento </td>
-                                        <td class="uk-visible@m">@anime.Capitulos </td>
-                                        <td class="uk-visible@m"> @anime.Genero </td>
-                                        <td class="uk-visible@m"> @anime.Estado </td>
-                                        <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                            }
+                            <ul class="uk-pagination">
+                                <li class="@DisablePrevious" @onclick="MovePrevious"><a><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
+                                <li class="uk-margin-auto-left @DisableNext" @onclick="MoveNext"><a>Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
+                                page:
+                                <span>@CurrentPage / @NumberOfPages() </span>
+                            </ul>
+                        </tbody>
+                    </table>
                     }
                     <div class="uk-height-medium">
                         <img class="uk-position-bottom-center" src="img/Logo.png" />
@@ -70,12 +77,12 @@
                 <div class="card bg-dark text-white">
                     <img style="opacity:30%" src="img/anime/@selectedAnime.Imagen" class="card-img" alt="...">
                     <div class="card-img-overlay">
-                        <h23 class="">@selectedAnime.Nombre</h23>
+                        <h2 class="">@selectedAnime.Nombre</h2>
                         <p class="card-text">@selectedAnime.Sinopsis</p>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a @onclick="(e => MostrarDetalles(ID))" class="btn--detalles uk-button" style="color:white">Ver</a>
+                    <a @onclick="(e => ShowDetails(ID))" class="btn--detalles uk-button" style="color:white">Ver</a>
                 </div>
             </div>
         </div>
@@ -88,11 +95,14 @@
 @code {
 
     List<VAnime> aniObj;
+    int CurrentPage { get; set; } = 1;
+    int RecordsPerPage = 10;
+
+
     protected override async Task OnInitializedAsync()
     {
         aniObj = await Task.Run(() => objAnime.GetAnimes());
     }
-
 
 
     VAnime selectedAnime;
@@ -104,10 +114,58 @@
         selectedAnime = aniObj.First(x => x.IdAnime == AnimeId);
     }
 
-    private void MostrarDetalles(int ID)
+    private void ShowDetails(int ID)
     {
         NavigationManager.NavigateTo("Animes/Details/" + ID, true);
     }
+
+    void MoveNext()
+    {
+        if (CurrentPage < NumberOfPages())
+        {
+            CurrentPage++;
+        }
+
+    }
+
+    void MovePrevious()
+    {
+        if (CurrentPage > 1)
+        {
+            CurrentPage--;
+        }
+
+    }
+
+    string DisablePrevious
+    {
+        get
+        {
+            if (CurrentPage == 1) { return "disabled"; }
+            return "";
+        }
+    }
+
+    string DisableNext
+    {
+        get
+        {
+            if (CurrentPage == NumberOfPages()) { return "disabled"; }
+            return "";
+        }
+    }
+
+    int NumberOfPages()
+    {
+        return (int)(Math.Ceiling(((double)aniObj.Count / (double)RecordsPerPage)));
+    }
+
+    List<VAnime> GetItemsToShow()
+    {
+        int skip = (CurrentPage - 1) * RecordsPerPage;
+        return aniObj.Skip(skip).Take(RecordsPerPage).ToList();
+    }
+
 }
 
 
