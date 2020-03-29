@@ -1,48 +1,33 @@
 ﻿@page
 @model NerdCore.Models.Usuario
+@using System.Security.Claims
 @{
     ViewBag.Title = "Login";
 }
-<br />
-<br  class="uk-height-max-large"/>
-<br />
-@using (Html.BeginForm("Login", "Home", FormMethod.Post))
-{
-    <fieldset>
-        <legend>Mvc Simple Login Application Demo</legend>
+    <div id="ContentPlaceHolder1_Cover" class="background" style="background-image: url(../img/LoginCover1.jpg)"></div>
 
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        @if (@ViewBag.Message != null)
-        {
-            <div style="border: 1px solid red">
-                @ViewBag.Message
-            </div>
-        }
-        <table>
-            <tr>
-                <td>@Html.LabelFor(a => a.Nick)</td>
-                <td>@Html.TextBoxFor(a => a.Nick)</td>
-                <td>@Html.ValidationMessageFor(a => a.Nick)</td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(a => a.Password)
-                </td>
-                <td>
-                    @Html.PasswordFor(a => a.Password)
-                </td>
-                <td>
-                    @Html.ValidationMessageFor(a => a.Password)
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input type="submit" value="Login" />
-                </td>
-                <td></td>
-            </tr>
-        </table>
-    </fieldset>
-} 
+<form method="post" class="login-form">
+    <h1><img src="~/img/Logo.png" /></h1>
+    <div class="txtb">
+        @Html.TextBoxFor(a => a.Nick)
+        <span data-placeholder="Username"></span>
+    </div>
+
+    <div class="txtb">
+        @Html.PasswordFor(a => a.Password)
+        <span data-placeholder="Password"></span>
+    </div>
+    <input type="submit" class="logbtn" value="Login">
+    
+</form>
+
+@if (@ViewBag.Message != null)
+{
+    <script type="text/javascript">
+                     Swal.fire(
+                    'Oops!',
+                    '@ViewBag.Message',
+                    'error'
+                )
+    </script>
+}

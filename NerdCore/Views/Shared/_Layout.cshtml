@@ -2,7 +2,7 @@
 <html lang="es-cl">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f19bff">
     <link id="favicon1" runat="server" rel="shortcut icon" href="~/img/Cat.ico" type="image/x-icon" />
     <title>@ViewData["Title"] - Ñoñopedia</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="~/js/sweetalert2.all.min.js"></script>
+    <meta property="og:title" content="Ñoñopedia">
+    <meta property="og:description" content="Bienvenido a la Ñoñopedia, una biblioteca digital para llevar un orden de todo el contenido multimedia del que disfrutas.">
+    <meta property="og:image" content="../img/ThumbÑoño.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
 
@@ -89,10 +94,11 @@
             </nav>
         </div>
     </div>
+    <div class="uk-offcanvas-content">
+        @RenderBody()
+    </div>
 
-    @RenderBody()
-
-<script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/uikit.min.js"></script>

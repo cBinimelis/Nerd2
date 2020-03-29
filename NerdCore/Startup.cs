@@ -37,7 +37,7 @@ namespace NerdCore
             services.AddScoped<AnimeService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddDbContext<NerdCoreContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("NerdCoreContext")));
+            options.UseSqlServer(Configuration.GetConnectionString("NerdCoreContextConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

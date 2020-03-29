@@ -37,23 +37,11 @@ namespace NerdCore.Controllers
                     }
                     else
                     {
-                        
+                        ViewBag.Message ="Ha habido un problema en el inicio de sesión";
                     }
                 }
             }
             return View(objUser);
-        }
-
-        public ActionResult Animes()
-        {
-            if (HttpContext.Session.GetString("user_ID") != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
         }
 
         public IActionResult Index()

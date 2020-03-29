@@ -22,17 +22,16 @@ namespace NerdCore.Views
         // GET: Animes
         public async Task<IActionResult> Index()
         {
-        //    if (HttpContext.Session.GetString("user_ID") != null)
-        //    {
+            //if (HttpContext.Session.GetString("user_ID") != null)
+            //{
                 var nerdCoreContext = _context.Anime.Include(a => a.IdEstadoSerieNavigation).Include(a => a.IdGeneroAnimeNavigation);
                 return View(await nerdCoreContext.ToListAsync());
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Login", "Home");
-        //    }
-
         }
+    //        else
+    //        {
+    //            return RedirectToAction("Login", "Home");
+    //}
+//}
 
         public async Task<IActionResult> Details(int? id)
         {
