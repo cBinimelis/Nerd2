@@ -36,8 +36,8 @@
                         <tbody>
                             @foreach (var anime in GetItemsToShow())
                             {
-                                <tr>
-                                    <td>@anime.Nombre</td>
+                                <tr >
+                                    <td class="uk-text-truncate">@anime.Nombre</td>
                                     <td class="uk-visible@m"> @anime.Lanzamiento </td>
                                     <td class="uk-visible@m">@anime.Capitulos </td>
                                     <td class="uk-visible@m"> @anime.Genero </td>
@@ -45,13 +45,14 @@
                                     <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
                                 </tr>
                             }
-                            <ul class="uk-pagination">
-                                <li class="@DisablePrevious" @onclick="MovePrevious"><a><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
-                                <li class="uk-margin-auto-left @DisableNext" @onclick="MoveNext"><a>Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
-                                page:
-                                <span>@CurrentPage / @NumberOfPages() </span>
-                            </ul>
                         </tbody>
+                        <ul class="uk-pagination " uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
+                            <li class="@DisablePrevious" @onclick="MovePrevious"><a><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
+
+                            <li class="uk-margin-auto-left @DisableNext" @onclick="MoveNext"><a>Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
+                            page:
+                            <span>@CurrentPage / @NumberOfPages() </span>
+                        </ul>
                     </table>
                     }
                     <div class="uk-height-medium">
@@ -96,8 +97,8 @@
 
     List<VAnime> aniObj;
     int CurrentPage { get; set; } = 1;
-    int RecordsPerPage = 10;
-
+    int RecordsPerPage = 20;
+    int TotalPages = 0;
 
     protected override async Task OnInitializedAsync()
     {
@@ -157,7 +158,8 @@
 
     int NumberOfPages()
     {
-        return (int)(Math.Ceiling(((double)aniObj.Count / (double)RecordsPerPage)));
+        TotalPages = (int)(Math.Ceiling(((double)aniObj.Count / (double)RecordsPerPage)));
+        return TotalPages;
     }
 
     List<VAnime> GetItemsToShow()

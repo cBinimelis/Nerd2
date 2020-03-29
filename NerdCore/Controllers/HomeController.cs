@@ -6,16 +6,54 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NerdCore.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace NerdCore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public ActionResult Login()
         {
-            _logger = logger;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(Usuario objUser)
+        {
+            if (ModelState.IsValid)
+            {
+                using (NerdCoreContext db = new NerdCoreContext())
+                {
+                    var obj = db.Usuario.Where(a => a.Nick.Equals(objUser.Nick) && a.Password.Equals(objUser.Password)).FirstOrDefault();
+                    if (obj != null)
+                    {
+                        string id = obj.IdUsuario.ToString();
+                        HttpContext.Session.SetString("user_ID", id);
+                        HttpContext.Session.SetString("username", obj.Nick);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+            }
+            return View(objUser);
+        }
+
+        public ActionResult Animes()
+        {
+            if (HttpContext.Session.GetString("user_ID") != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         public IActionResult Index()

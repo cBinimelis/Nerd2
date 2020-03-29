@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NerdCore.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace NerdCore.Views
 {
@@ -21,8 +22,16 @@ namespace NerdCore.Views
         // GET: Animes
         public async Task<IActionResult> Index()
         {
-            var nerdCoreContext = _context.Anime.Include(a => a.IdEstadoSerieNavigation).Include(a => a.IdGeneroAnimeNavigation);
-            return View(await nerdCoreContext.ToListAsync());
+        //    if (HttpContext.Session.GetString("user_ID") != null)
+        //    {
+                var nerdCoreContext = _context.Anime.Include(a => a.IdEstadoSerieNavigation).Include(a => a.IdGeneroAnimeNavigation);
+                return View(await nerdCoreContext.ToListAsync());
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Login", "Home");
+        //    }
+
         }
 
         public async Task<IActionResult> Details(int? id)
