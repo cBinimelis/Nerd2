@@ -20,7 +20,7 @@
         <div class=" uk-container">
             <div class="uk-card uk-card-default">
                 <div class="uk-card-body uk-overflow-auto">
-                    @if (aniObj != null)
+                    @if (aniObj != null && aniUser !=null)
                     {
                     <table class="uk-table  uk-table-middle uk-table-divider">
                         <thead>
@@ -30,6 +30,7 @@
                                 <th>Capitulos</th>
                                 <th>Genero</th>
                                 <th>Estado</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -43,6 +44,15 @@
                                     <td class="uk-visible@m"> @anime.Genero </td>
                                     <td class="uk-visible@m"> @anime.Estado </td>
                                     <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
+                                    <td>
+                                        @foreach (var uAnime in aniUser)
+                                        {
+                                            if (anime.IdAnime ==uAnime.IdAnime && uAnime.IdUsuario==1)
+                                            {
+
+                                            }
+                                        }
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -95,19 +105,21 @@
 
 @code {
 
+    private readonly NerdCoreContext _db;
     List<VAnime> aniObj;
+    List<AnimeUsuario> aniUser;
+    VAnime selectedAnime;
     int CurrentPage { get; set; } = 1;
     int RecordsPerPage = 20;
     int TotalPages = 0;
+    int selectedAnimeId;
 
     protected override async Task OnInitializedAsync()
     {
         aniObj = await Task.Run(() => objAnime.GetAnimes());
+        aniUser = await Task.Run(()=>_db.AnimeUsuario.ToList());
     }
 
-
-    VAnime selectedAnime;
-    int selectedAnimeId;
 
     void SelectAnime(int AnimeId)
     {
@@ -167,6 +179,13 @@
         int skip = (CurrentPage - 1) * RecordsPerPage;
         return aniObj.Skip(skip).Take(RecordsPerPage).ToList();
     }
+
+
+    //Llamado de lista de animes de usuario
+
+
+
+
 
 }
 

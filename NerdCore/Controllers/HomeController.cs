@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using NerdCore.Data;
 using NerdCore.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,7 +13,7 @@ namespace NerdCore.Controllers
 {
     public class HomeController : Controller
     {
-
+        NerdUser nerd = new NerdUser();
         public ActionResult Login()
         {
             return View();
@@ -33,6 +33,8 @@ namespace NerdCore.Controllers
                         string id = obj.IdUsuario.ToString();
                         HttpContext.Session.SetString("user_ID", id);
                         HttpContext.Session.SetString("username", obj.Nick);
+                        nerd.IdNerdUser = Convert.ToInt32(id);
+                        nerd.NickNerdUser = obj.Nick;
                         return RedirectToAction("Index");
                     }
                     else
