@@ -35,6 +35,7 @@ namespace NerdCore.Controllers
                         HttpContext.Session.SetString("username", obj.Nick);
                         nerd.IdNerdUser = Convert.ToInt32(id);
                         nerd.NickNerdUser = obj.Nick;
+                        TempData["NERD_USER"] = id;
                         return RedirectToAction("Index");
                     }
                     else

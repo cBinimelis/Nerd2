@@ -24,6 +24,12 @@ namespace NerdCore.Data
             var Lista = _db.VAnime.OrderBy(x=>x.Nombre).ToList();
             return Lista;
         }
+        //Listar Usuario actual
+        public List<AnimeUsuario> GetUser()
+        {
+            var ListaU = _db.AnimeUsuario.ToList();
+            return ListaU;
+        }
 
         //Insertar Animes
         public string Create(Anime anime)

@@ -2,6 +2,7 @@
 @using NerdCore.Models
 @using NerdCore.Data
 @inject AnimeService objAnime
+@inject AnimeService userAnime
 @inject NavigationManager NavigationManager
 
 <div class="uk-section-default">
@@ -20,50 +21,43 @@
         <div class=" uk-container">
             <div class="uk-card uk-card-default">
                 <div class="uk-card-body uk-overflow-auto">
-                    @if (aniObj != null && aniUser !=null)
+                    @if (aniObj != null)
                     {
-                    <table class="uk-table  uk-table-middle uk-table-divider">
-                        <thead>
-                            <tr>
-                                <th class="uk-width-medium">Nombre de la Serie</th>
-                                <th>Lanzamiento</th>
-                                <th>Capitulos</th>
-                                <th>Genero</th>
-                                <th>Estado</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var anime in GetItemsToShow())
-                            {
-                                <tr >
-                                    <td class="uk-text-truncate">@anime.Nombre</td>
-                                    <td class="uk-visible@m"> @anime.Lanzamiento </td>
-                                    <td class="uk-visible@m">@anime.Capitulos </td>
-                                    <td class="uk-visible@m"> @anime.Genero </td>
-                                    <td class="uk-visible@m"> @anime.Estado </td>
-                                    <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
-                                    <td>
-                                        @foreach (var uAnime in aniUser)
-                                        {
-                                            if (anime.IdAnime ==uAnime.IdAnime && uAnime.IdUsuario==1)
-                                            {
-
-                                            }
-                                        }
-                                    </td>
+                        <table class="uk-table  uk-table-middle uk-table-divider">
+                            <thead>
+                                <tr>
+                                    <th class="uk-width-medium">Nombre de la Serie</th>
+                                    <th>Lanzamiento</th>
+                                    <th>Capitulos</th>
+                                    <th>Genero</th>
+                                    <th>Estado</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
-                            }
-                        </tbody>
-                        <ul class="uk-pagination " uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
-                            <li class="@DisablePrevious" @onclick="MovePrevious"><a><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
+                            </thead>
+                            <tbody>
+                                @foreach (var anime in GetItemsToShow())
+                                {
+                                    <tr >
+                                        <td class="uk-text-truncate">@anime.Nombre</td>
+                                        <td class="uk-visible@m"> @anime.Lanzamiento </td>
+                                        <td class="uk-visible@m">@anime.Capitulos </td>
+                                        <td class="uk-visible@m"> @anime.Genero </td>
+                                        <td class="uk-visible@m"> @anime.Estado </td>
+                                        <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
+                                        <td style="@ShowAdded(anime.IdAnime)"><a href="" class="uk-button uk-button-primary" uk-icon="check"></a></td>
+                                        @*<td ><span uk-icon='icon: @ShowAdded(anime.IdAnime)'></span></td>*@
+                                    </tr>
+                                }
+                            </tbody>
+                            <ul class="uk-pagination " uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
+                                <li class="@DisablePrevious" @onclick="MovePrevious"><a><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
 
-                            <li class="uk-margin-auto-left @DisableNext" @onclick="MoveNext"><a>Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
-                            page:
-                            <span>@CurrentPage / @NumberOfPages() </span>
-                        </ul>
-                    </table>
+                                <li class="uk-margin-auto-left @DisableNext" @onclick="MoveNext"><a>Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
+                                page:
+                                <span>@CurrentPage / @NumberOfPages() </span>
+                            </ul>
+                        </table>
                     }
                     <div class="uk-height-medium">
                         <img class="uk-position-bottom-center" src="img/Logo.png" />
@@ -105,21 +99,24 @@
 
 @code {
 
-    private readonly NerdCoreContext _db;
     List<VAnime> aniObj;
     List<AnimeUsuario> aniUser;
-    VAnime selectedAnime;
     int CurrentPage { get; set; } = 1;
     int RecordsPerPage = 20;
     int TotalPages = 0;
-    int selectedAnimeId;
+
+    [Parameter]
+    public int Nerd { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         aniObj = await Task.Run(() => objAnime.GetAnimes());
-        aniUser = await Task.Run(()=>_db.AnimeUsuario.ToList());
+        aniUser = await Task.Run(() => userAnime.GetUser());
     }
 
+
+    VAnime selectedAnime;
+    int selectedAnimeId;
 
     void SelectAnime(int AnimeId)
     {
@@ -168,6 +165,21 @@
         }
     }
 
+    string ShowAdded(int id)
+    {
+        if (aniUser != null)
+        {
+            foreach(var user in aniUser)
+            {
+                if (user.IdAnime == id && user.IdUsuario== Nerd)
+                {
+                    return "";
+                }
+            }
+        }
+        return "display:none";
+    }
+
     int NumberOfPages()
     {
         TotalPages = (int)(Math.Ceiling(((double)aniObj.Count / (double)RecordsPerPage)));
@@ -179,13 +191,6 @@
         int skip = (CurrentPage - 1) * RecordsPerPage;
         return aniObj.Skip(skip).Take(RecordsPerPage).ToList();
     }
-
-
-    //Llamado de lista de animes de usuario
-
-
-
-
 
 }
 
