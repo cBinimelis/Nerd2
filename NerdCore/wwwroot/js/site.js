@@ -24,3 +24,16 @@ $(".txtb input").on("blur", function () {
     if ($(this).val() == "")
         $(this).removeClass("focus");
 });
+
+
+(function () {
+    window.Functions = {
+        ShowAlert: function () {
+            Swal.fire(
+                '¡Felicidades!',
+                'Más vicio para tu vida',
+                'success'
+            )
+        }
+    };
+})();

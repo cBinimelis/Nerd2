@@ -488,6 +488,39 @@ ul {
         right: 0px;
     }
 
+.btn--add {
+    font-weight: 700;
+    font-size: 17px;
+    transition: .5s ease;
+    color: white;
+    padding-right: 0;
+    background-color: #ba55d3;
+    -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 70%, 90% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 100%, 0 100%);
+}
+
+    .btn--add:hover {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
+    }
+
+    .btn--add:after {
+        content: "\efc0";
+        color: white;
+        font-weight: 100;
+        font-size: 20px;
+        font-family: Icofont;
+        display: inline-block;
+        position: relative;
+        right: -55px;
+        transition: all 0.2s ease;
+    }
+
+    .btn--add:hover:after {
+        margin: -5px 15px;
+        right: 0px;
+    }
+
 .btn--editar {
     font-weight: 700;
     font-size: 17px;

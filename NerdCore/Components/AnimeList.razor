@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 @using NerdCore.Models
 @using NerdCore.Data
+@using Microsoft.JSInterop
+@inject IJSRuntime jsRuntime
 @inject AnimeService objAnime
 @inject AnimeService userAnime
 @inject NavigationManager NavigationManager
@@ -38,15 +40,14 @@
                             <tbody>
                                 @foreach (var anime in GetItemsToShow())
                                 {
-                                    <tr >
+                                    <tr>
                                         <td class="uk-text-truncate">@anime.Nombre</td>
                                         <td class="uk-visible@m"> @anime.Lanzamiento </td>
                                         <td class="uk-visible@m">@anime.Capitulos </td>
                                         <td class="uk-visible@m"> @anime.Genero </td>
                                         <td class="uk-visible@m"> @anime.Estado </td>
                                         <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
-                                        <td style="@ShowAdded(anime.IdAnime)"><a href="" class="uk-button uk-button-primary" uk-icon="check"></a></td>
-                                        @*<td ><span uk-icon='icon: @ShowAdded(anime.IdAnime)'></span></td>*@
+                                        <td style="@ShowAdded(anime.IdAnime)"><a href="" style="color:white" class="btn--add uk-button" @onclick="(e=>AddAnime(anime.IdAnime))">Agregar</a></td>
                                     </tr>
                                 }
                             </tbody>
@@ -87,18 +88,19 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <a style="@ShowAdded(ID); color:white" class="btn--add uk-button">Agregar</a>
                     <a @onclick="(e => ShowDetails(ID))" class="btn--detalles uk-button" style="color:white">Ver</a>
                 </div>
             </div>
         </div>
     </div>
-
 }
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 @code {
-
+    NerdCoreContext _db;
     List<VAnime> aniObj;
     List<AnimeUsuario> aniUser;
     int CurrentPage { get; set; } = 1;
@@ -113,6 +115,7 @@
         aniObj = await Task.Run(() => objAnime.GetAnimes());
         aniUser = await Task.Run(() => userAnime.GetUser());
     }
+
 
 
     VAnime selectedAnime;
@@ -144,7 +147,6 @@
         {
             CurrentPage--;
         }
-
     }
 
     string DisablePrevious
@@ -169,15 +171,15 @@
     {
         if (aniUser != null)
         {
-            foreach(var user in aniUser)
+            foreach (var user in aniUser)
             {
-                if (user.IdAnime == id && user.IdUsuario== Nerd)
+                if (user.IdAnime == id && user.IdUsuario == Nerd)
                 {
-                    return "";
+                    return "display:none";
                 }
             }
         }
-        return "display:none";
+        return "";
     }
 
     int NumberOfPages()
@@ -192,8 +194,19 @@
         return aniObj.Skip(skip).Take(RecordsPerPage).ToList();
     }
 
-}
 
+    private async void AddAnime(int ID)
+    {
+        await jsRuntime.InvokeVoidAsync("Functions.ShowAlert");
+        //aniUser.Add(new AnimeUsuario()
+        //{
+        //    IdAnime = ID,
+        //    IdUsuario = Nerd,
+        //    IdAvanceAnime = 1,
+        //    Nota = "Sin notas adjuntas"
+        //});
+    }
+}
 
 
 
