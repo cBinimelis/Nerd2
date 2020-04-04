@@ -25,15 +25,20 @@ $(".txtb input").on("blur", function () {
         $(this).removeClass("focus");
 });
 
+//Exito al agregar un nuevo Anime a la lista del usuario
+function AUAdded(){
+    Swal.fire(
+        '¡Felicidades!',
+        'Más vicio para tu vida',
+        'success'
+    )
+};
 
-(function () {
-    window.Functions = {
-        ShowAlert: function () {
-            Swal.fire(
-                '¡Felicidades!',
-                'Más vicio para tu vida',
-                'success'
-            )
-        }
-    };
-})();
+//error al agregar un nuevo Anime a la lista del usuario
+function AUFailed() {
+    Swal.fire(
+        'Oh oh...',
+        'Algo no salió bien',
+        'error'
+    )
+};

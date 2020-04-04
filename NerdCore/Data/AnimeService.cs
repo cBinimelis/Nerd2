@@ -24,12 +24,6 @@ namespace NerdCore.Data
             var Lista = _db.VAnime.OrderBy(x=>x.Nombre).ToList();
             return Lista;
         }
-        //Listar Usuario actual
-        public List<AnimeUsuario> GetUser()
-        {
-            var ListaU = _db.AnimeUsuario.ToList();
-            return ListaU;
-        }
 
         //Insertar Animes
         public string Create(Anime anime)
@@ -60,6 +54,21 @@ namespace NerdCore.Data
             _db.Remove(anime);
             _db.SaveChanges();
             return "Eliminacion completa";
+        }
+
+        //Listar Usuario actual
+        public List<AnimeUsuario> GetUser()
+        {
+            var ListaU = _db.AnimeUsuario.ToList();
+            return ListaU;
+        }
+
+        //CrearAnimeUsuario
+        public bool CreateAU(AnimeUsuario animeU)
+        {
+            _db.AnimeUsuario.Add(animeU);
+            _db.SaveChanges();
+            return true;
         }
     }
 }

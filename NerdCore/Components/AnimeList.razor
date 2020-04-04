@@ -47,7 +47,7 @@
                                         <td class="uk-visible@m"> @anime.Genero </td>
                                         <td class="uk-visible@m"> @anime.Estado </td>
                                         <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
-                                        <td style="@ShowAdded(anime.IdAnime)"><a href="" style="color:white" class="btn--add uk-button" @onclick="(e=>AddAnime(anime.IdAnime))">Agregar</a></td>
+                                        <td style="@ShowAdded(anime.IdAnime)"><a style="color:white" class="btn--add uk-button" @onclick="(e=>AddAnime(anime.IdAnime))">Agregar</a></td>
                                     </tr>
                                 }
                             </tbody>
@@ -83,7 +83,7 @@
                 <div class="card bg-dark text-white">
                     <img style="opacity:30%" src="img/anime/@selectedAnime.Imagen" class="card-img" alt="...">
                     <div class="card-img-overlay">
-                        <h2 class="">@selectedAnime.Nombre</h2>
+                        <h2 class="uk-light">@selectedAnime.Nombre</h2>
                         <p class="card-text">@selectedAnime.Sinopsis</p>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 @code {
-    NerdCoreContext _db;
+
     List<VAnime> aniObj;
     List<AnimeUsuario> aniUser;
     int CurrentPage { get; set; } = 1;
@@ -197,14 +197,27 @@
 
     private async void AddAnime(int ID)
     {
-        await jsRuntime.InvokeVoidAsync("Functions.ShowAlert");
-        //aniUser.Add(new AnimeUsuario()
-        //{
-        //    IdAnime = ID,
-        //    IdUsuario = Nerd,
-        //    IdAvanceAnime = 1,
-        //    Nota = "Sin notas adjuntas"
-        //});
+        AnimeUsuario AU = new AnimeUsuario()
+        {
+            IdAnime = ID,
+            IdUsuario = Nerd,
+            IdAvanceAnime = 1,
+            Nota = "Sin notas adjuntas"
+        };
+        aniUser.Add(AU);
+        if (objAnime.CreateAU(AU))
+        {
+            await jsRuntime.InvokeVoidAsync("AUAdded");
+        }
+        else
+        {
+
+        }
+    }
+
+    public async Task call()
+    {
+        await jsRuntime.InvokeVoidAsync("ShowAlert");
     }
 }
 

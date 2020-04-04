@@ -17,7 +17,7 @@ namespace NerdCore.Models
         public string Nombre { get; set; }
         public string Sinopsis { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Lanzamiento { get; set; }
         public int Temporadas { get; set; }
         public int CapitulosTotales { get; set; }
