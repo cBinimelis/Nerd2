@@ -4,7 +4,28 @@
 @{
     ViewBag.Title = "Login";
 }
-    <div id="ContentPlaceHolder1_Cover" class="background" style="background-image: url(../img/LoginCover1.jpg)"></div>
+<div class="uk-height-viewport uk-background-cover" tabindex="-1" uk-slideshow="animation: push; autoplay: true; autoplay-interval: 4000; pause-on-hover: true">
+    <ul class="uk-slideshow-items" uk-height-viewport="min-height: 300">
+        <li>
+            <div class="background" style="background-image: url(../img/LoginCover1.jpg)"></div>
+        </li>
+        <li>
+            <div class="background" style="background-image: url(../img/LoginCover2.jpg)"></div>
+        </li>
+        <li>
+            <div class="background" style="background-image: url(../img/LoginCover3.jpg)"></div>
+        </li>
+        <li>
+            <div class="background" style="background-image: url(../img/LoginCover4.jpg)"></div>
+        </li>
+        <li>
+            <div class="background" style="background-image: url(../img/LoginCover5.jpg)"></div>
+        </li>
+        <li>
+            <div class="background" style="background-image: url(../img/LoginCover6.jpg)"></div>
+        </li>
+    </ul>
+</div>
 
 <form method="post" class="login-form">
     <h1><img src="~/img/Logo.png" /></h1>
@@ -18,7 +39,7 @@
         <span data-placeholder="Password"></span>
     </div>
     <input type="submit" class="logbtn" value="Login">
-    
+
 </form>
 
 @if (@ViewBag.Message != null)

@@ -22,16 +22,9 @@ namespace NerdCore.Views
         // GET: Animes
         public async Task<IActionResult> Index()
         {
-            if (HttpContext.Session.GetString("user_ID") != null)
-            {
-                ViewBag.Nerd = Convert.ToInt32(HttpContext.Session.GetString("user_ID"));
-                var nerdCoreContext = _context.Anime.Include(a => a.IdEstadoSerieNavigation).Include(a => a.IdGeneroAnimeNavigation);
-                return View(await nerdCoreContext.ToListAsync());
-            }
-            else
-            {
-                return RedirectToAction("Login", "Home");
-            }
+            ViewBag.Nerd = Convert.ToInt32(HttpContext.Session.GetString("user_ID"));
+            var nerdCoreContext = _context.Anime.Include(a => a.IdEstadoSerieNavigation).Include(a => a.IdGeneroAnimeNavigation);
+            return View(await nerdCoreContext.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -56,9 +49,17 @@ namespace NerdCore.Views
         // GET: Animes/Create
         public IActionResult Create()
         {
-            ViewData["IdEstadoSerie"] = new SelectList(_context.EstadoSerie, "IdEstadoSerie", "Descripcion");
-            ViewData["IdGeneroAnime"] = new SelectList(_context.GeneroAnime, "IdGeneroAnime", "Descripcion");
-            return View();
+            if (HttpContext.Session.GetString("user_ID") != null)
+            {
+                ViewBag.Nerd = Convert.ToInt32(HttpContext.Session.GetString("user_ID"));
+                ViewData["IdEstadoSerie"] = new SelectList(_context.EstadoSerie, "IdEstadoSerie", "Descripcion");
+                ViewData["IdGeneroAnime"] = new SelectList(_context.GeneroAnime, "IdGeneroAnime", "Descripcion");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // POST: Animes/Create
@@ -82,19 +83,27 @@ namespace NerdCore.Views
         // GET: Animes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (HttpContext.Session.GetString("user_ID") != null)
             {
-                return NotFound();
-            }
+                ViewBag.Nerd = Convert.ToInt32(HttpContext.Session.GetString("user_ID"));
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var anime = await _context.Anime.FindAsync(id);
-            if (anime == null)
-            {
-                return NotFound();
+                var anime = await _context.Anime.FindAsync(id);
+                if (anime == null)
+                {
+                    return NotFound();
+                }
+                ViewData["IdEstadoSerie"] = new SelectList(_context.EstadoSerie, "IdEstadoSerie", "Descripcion", anime.IdEstadoSerie);
+                ViewData["IdGeneroAnime"] = new SelectList(_context.GeneroAnime, "IdGeneroAnime", "Descripcion", anime.IdGeneroAnime);
+                return View(anime);
             }
-            ViewData["IdEstadoSerie"] = new SelectList(_context.EstadoSerie, "IdEstadoSerie", "Descripcion", anime.IdEstadoSerie);
-            ViewData["IdGeneroAnime"] = new SelectList(_context.GeneroAnime, "IdGeneroAnime", "Descripcion", anime.IdGeneroAnime);
-            return View(anime);
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // POST: Animes/Edit/5
@@ -137,21 +146,29 @@ namespace NerdCore.Views
         // GET: Animes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (HttpContext.Session.GetString("user_ID") != null)
             {
-                return NotFound();
-            }
+                ViewBag.Nerd = Convert.ToInt32(HttpContext.Session.GetString("user_ID"));
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var anime = await _context.Anime
-                .Include(a => a.IdEstadoSerieNavigation)
-                .Include(a => a.IdGeneroAnimeNavigation)
-                .FirstOrDefaultAsync(m => m.IdAnime == id);
-            if (anime == null)
+                var anime = await _context.Anime
+                    .Include(a => a.IdEstadoSerieNavigation)
+                    .Include(a => a.IdGeneroAnimeNavigation)
+                    .FirstOrDefaultAsync(m => m.IdAnime == id);
+                if (anime == null)
+                {
+                    return NotFound();
+                }
+
+                return View(anime);
+            }
+            else
             {
-                return NotFound();
+                return RedirectToAction("Login", "Home");
             }
-
-            return View(anime);
         }
 
         // POST: Animes/Delete/5

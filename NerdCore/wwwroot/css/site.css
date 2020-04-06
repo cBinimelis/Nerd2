@@ -619,6 +619,7 @@ ul {
         background: none;
         padding: 0 5px;
         height: 40px;
+        overflow: hidden;
     }
 
     .txtb span::before {
@@ -630,15 +631,7 @@ ul {
         transform: translateY(-50%);
         z-index: -1;
         transition: .5s;
-    }
-
-    .txtb span::after {
-        content: '';
-        position: absolute;
-        width: 0%;
-        height: 2px;
-        background: linear-gradient(120deg,#3498db,#8e44ad);
-        transition: .5s;
+        overflow: hidden;
     }
 
 .focus + span::before {
@@ -665,3 +658,33 @@ ul {
     .logbtn:hover {
         background-position: right;
     }
+
+
+
+.card-bg {
+    overflow: hidden;
+    background-size: 100%;
+    -webkit-filter: grayscale(100%);
+    -webkit-transition: .3s ease-in-out;
+    filter: grayscale(100%);
+    transition: .3s ease-in-out;
+    position: center;
+}
+    .card-bg:hover{
+        -webkit-filter: blur(3px);
+        filter: blur(3px);
+        -webkit-filter: grayscale(0);
+        filter: grayscale(0);
+    }
+
+.card-txt {
+    color:white;
+    font-size: 150px;
+    font-weight: 900;
+}
+.card-bg:hover label {
+}
+
+
+
+

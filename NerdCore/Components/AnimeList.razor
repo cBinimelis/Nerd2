@@ -18,11 +18,22 @@
 </div>
 
 
-<div class="uk-section-default uk-margin">
     <div class="uk-section">
         <div class=" uk-container">
             <div class="uk-card uk-card-default">
                 <div class="uk-card-body uk-overflow-auto">
+                    <div class="uk-grid" uk-flex>
+                        <div class="uk-search uk-search-default uk-width-1-2">
+                            <div class="uk-inline uk-width-1-2">
+                                <span uk-search-icon></span>
+                                <input class="uk-search-input" placeholder="Escribe para empezar a buscar" @bind-value="BuscarAnime" @bind-value:event="oninput" />
+                            </div>
+                        </div>
+                        <div class="uk-width-1-2">
+                            <button class="btn--add uk-button">crear</button>
+                            <button class="btn--add uk-button">pendientes</button>
+                        </div>
+                    </div>
                     @if (aniObj != null)
                     {
                         <table class="uk-table  uk-table-middle uk-table-divider">
@@ -67,7 +78,6 @@
             </div>
         </div>
     </div>
-</div>
 
 
 @if (selectedAnime != null)
@@ -88,7 +98,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a style="@ShowAdded(ID); color:white" class="btn--add uk-button">Agregar</a>
+                    <a style="@ShowAdded(ID); color:white" class="btn--add uk-button" @onclick="(e=>AddAnime(ID))">Agregar</a>
                     <a @onclick="(e => ShowDetails(ID))" class="btn--detalles uk-button" style="color:white">Ver</a>
                 </div>
             </div>
@@ -104,6 +114,7 @@
     List<VAnime> aniObj;
     List<AnimeUsuario> aniUser;
     int CurrentPage { get; set; } = 1;
+    string BuscarAnime { get; set; } = "";
     int RecordsPerPage = 20;
     int TotalPages = 0;
 
@@ -169,7 +180,7 @@
 
     string ShowAdded(int id)
     {
-        if (aniUser != null)
+        if (aniUser != null&&Nerd!=0)
         {
             foreach (var user in aniUser)
             {
@@ -177,7 +188,15 @@
                 {
                     return "display:none";
                 }
+                else
+                {
+                    return "";
+                }
             }
+        }
+        else
+        {
+            return "display:none";
         }
         return "";
     }
@@ -190,8 +209,9 @@
 
     List<VAnime> GetItemsToShow()
     {
+        List<VAnime> filterAnime = aniObj.Where(i => i.Nombre.ToLower().Contains(BuscarAnime.ToLower())).ToList();
         int skip = (CurrentPage - 1) * RecordsPerPage;
-        return aniObj.Skip(skip).Take(RecordsPerPage).ToList();
+        return filterAnime.Skip(skip).Take(RecordsPerPage).ToList();
     }
 
 
