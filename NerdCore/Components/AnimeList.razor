@@ -18,66 +18,71 @@
 </div>
 
 
-    <div class="uk-section">
-        <div class=" uk-container">
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-body uk-overflow-auto">
-                    <div class="uk-grid" uk-flex>
-                        <div class="uk-search uk-search-default uk-width-1-2">
-                            <div class="uk-inline uk-width-1-2">
-                                <span uk-search-icon></span>
-                                <input class="uk-search-input" placeholder="Escribe para empezar a buscar" @bind-value="BuscarAnime" @bind-value:event="oninput" />
-                            </div>
-                        </div>
-                        <div class="uk-width-1-2">
-                            <button class="btn--add uk-button">crear</button>
-                            <button class="btn--add uk-button">pendientes</button>
+<div class="uk-section">
+    <div class=" uk-container">
+        <div class="uk-card uk-card-default">
+            <div class="uk-card-body uk-overflow-auto">
+                <div class="uk-grid" uk-flex>
+                    <div class="uk-search uk-search-default uk-width-1-2">
+                        <div class="uk-inline uk-width-1-2">
+                            <span uk-search-icon></span>
+                            <input class="uk-search-input" placeholder="Escribe para empezar a buscar" @bind-value="BuscarAnime" @bind-value:event="oninput" />
                         </div>
                     </div>
-                    @if (aniObj != null)
-                    {
-                        <table class="uk-table  uk-table-middle uk-table-divider">
-                            <thead>
+                    <div class="uk-width-1-2" style="CheckLogin()">
+                        <a href="Animes/Create" class="btn--add uk-button">crear</a>
+                        <a href="" class="btn--add uk-button">pendientes</a>
+                    </div>
+                </div>
+                @if (aniObj != null)
+                {
+                    int TotPages = NumberOfPages();
+                    <table class="uk-table  uk-table-middle uk-table-divider">
+                        <thead>
+                            <tr>
+                                <th class="uk-width-medium">Nombre de la Serie</th>
+                                <th>Lanzamiento</th>
+                                <th>Capitulos</th>
+                                <th>Genero</th>
+                                <th>Estado</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var anime in GetItemsToShow())
+                            {
                                 <tr>
-                                    <th class="uk-width-medium">Nombre de la Serie</th>
-                                    <th>Lanzamiento</th>
-                                    <th>Capitulos</th>
-                                    <th>Genero</th>
-                                    <th>Estado</th>
-                                    <th></th>
-                                    <th></th>
+                                    <td class="uk-text-truncate">@anime.Nombre</td>
+                                    <td class="uk-visible@m"> @anime.Lanzamiento </td>
+                                    <td class="uk-visible@m">@anime.Capitulos </td>
+                                    <td class="uk-visible@m"> @anime.Genero </td>
+                                    <td class="uk-visible@m"> @anime.Estado </td>
+                                    <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
+                                    <td style="@ShowAdded(anime.IdAnime)"><a style="color:white" class="btn--add uk-button" @onclick="(e=>AddAnime(anime.IdAnime))">Agregar</a></td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var anime in GetItemsToShow())
-                                {
-                                    <tr>
-                                        <td class="uk-text-truncate">@anime.Nombre</td>
-                                        <td class="uk-visible@m"> @anime.Lanzamiento </td>
-                                        <td class="uk-visible@m">@anime.Capitulos </td>
-                                        <td class="uk-visible@m"> @anime.Genero </td>
-                                        <td class="uk-visible@m"> @anime.Estado </td>
-                                        <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
-                                        <td style="@ShowAdded(anime.IdAnime)"><a style="color:white" class="btn--add uk-button" @onclick="(e=>AddAnime(anime.IdAnime))">Agregar</a></td>
-                                    </tr>
-                                }
-                            </tbody>
-                            <ul class="uk-pagination " uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
-                                <li class="@DisablePrevious" @onclick="MovePrevious"><a><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
-
-                                <li class="uk-margin-auto-left @DisableNext" @onclick="MoveNext"><a>Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
-                                page:
-                                <span>@CurrentPage / @NumberOfPages() </span>
-                            </ul>
-                        </table>
-                    }
-                    <div class="uk-height-medium">
-                        <img class="uk-position-bottom-center" src="img/Logo.png" />
+                            }
+                        </tbody>
+                    </table>
+                    <div class="uk-flex-center" uk-grid>
+                        <ul class="uk-pagination" uk-margin>
+                            <li class="@DisablePrevious" @onclick="MovePrevious"><a><span uk-pagination-previous></span> Anterior</a></li>
+                            @for (int i = 0; i < TotPages; i++)
+                            {
+                                int p = i + 1;
+                                <li><a @onclick="(e=>MoveToPage(p))">@p</a></li>
+                            }
+                            <li class="uk-margin-auto-left @DisableNext" @onclick="MoveNext"><a>Siguiente <span uk-pagination-next></span></a></li>
+                        </ul>
                     </div>
+                }
+                <div class="uk-height-medium">
+                    <img class="uk-position-bottom-center" src="img/Logo.png" />
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 @if (selectedAnime != null)
@@ -160,6 +165,14 @@
         }
     }
 
+    void MoveToPage(int page)
+    {
+        if (CurrentPage > 1 || CurrentPage < NumberOfPages())
+        {
+            CurrentPage = page;
+        }
+    }
+
     string DisablePrevious
     {
         get
@@ -180,7 +193,7 @@
 
     string ShowAdded(int id)
     {
-        if (aniUser != null&&Nerd!=0)
+        if (aniUser != null && Nerd != 0)
         {
             foreach (var user in aniUser)
             {
@@ -195,6 +208,15 @@
             }
         }
         else
+        {
+            return "display:none";
+        }
+        return "";
+    }
+
+    string CheckLogin()
+    {
+        if (Nerd == 0)
         {
             return "display:none";
         }
