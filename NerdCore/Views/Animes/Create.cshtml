@@ -3,68 +3,96 @@
 @{
     ViewData["Title"] = "Create";
 }
-
-<h1>Create</h1>
-
-<h4>Anime</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Sinopsis" class="control-label"></label>
-                <input asp-for="Sinopsis" class="form-control" />
-                <span asp-validation-for="Sinopsis" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Lanzamiento" class="control-label"></label>
-                <input asp-for="Lanzamiento" class="form-control" />
-                <span asp-validation-for="Lanzamiento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Temporadas" class="control-label"></label>
-                <input asp-for="Temporadas" class="form-control" />
-                <span asp-validation-for="Temporadas" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CapitulosTotales" class="control-label"></label>
-                <input asp-for="CapitulosTotales" class="form-control" />
-                <span asp-validation-for="CapitulosTotales" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Imagen" class="control-label"></label>
-                <input asp-for="Imagen" class="form-control" />
-                <span asp-validation-for="Imagen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdGeneroAnime" class="control-label"></label>
-                <select asp-for="IdGeneroAnime" class ="form-control" asp-items="ViewBag.IdGeneroAnime"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="OtrosGeneros" class="control-label"></label>
-                <input asp-for="OtrosGeneros" class="form-control" />
-                <span asp-validation-for="OtrosGeneros" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdEstadoSerie" class="control-label"></label>
-                <select asp-for="IdEstadoSerie" class ="form-control" asp-items="ViewBag.IdEstadoSerie"></select>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Activo" /> @Html.DisplayNameFor(model => model.Activo)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <br />
+<div class="uk-section-default uk-margin">
+    <div class="uk-section">
+        <div class="uk-container">
+            <form asp-action="Create">
+                <div class="uk-card uk-card-secondary uk-card-hover">
+                    <h1 class="uk-heading-line uk-text-center uk-padding">Mantenedor de Anime</h1>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="uk-card-body uk-flex-center" uk-grid>
+                        <div class="uk-width-3-4@m">
+                            <p>Nombre</p>
+                            <div class="uk-inline">
+                                <span class="uk-form-icon" uk-icon="icon: bookmark"></span>
+                                <input asp-for="Nombre" class="uk-input uk-width-xxlarge" />
+                            </div>
+                            <span asp-validation-for="Lanzamiento" class="text-danger"></span>
+                        </div>
+                        <div class="uk-width-1-3@m">
+                            <p>Lanzamiento</p>
+                            <div class="uk-inline">
+                                <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                                <input asp-for="Lanzamiento" class="uk-input uk-form-width-large" />
+                            </div>
+                            <span asp-validation-for="Lanzamiento" class="text-danger"></span>
+                        </div>
+                        <div class="uk-width-1-3@m">
+                            <p>Capitulos</p>
+                            <div class="uk-inline">
+                                <span class="uk-form-icon" uk-icon="icon: tv"></span>
+                                <input asp-for="CapitulosTotales" class="uk-input uk-form-width-large" />
+                            </div>
+                            <span asp-validation-for="CapitulosTotales" class="text-danger"></span>
+                        </div>
+                        <div class="uk-width-1-3@m">
+                            <p>Temporadas</p>
+                            <div class="uk-inline">
+                                <span class="uk-form-icon" uk-icon="icon: world"></span>
+                                <input asp-for="Temporadas" class="uk-input uk-form-width-large" />
+                            </div>
+                            <span asp-validation-for="Temporadas" class="text-danger"></span>
+                        </div>
+                        <div class="uk-width-1-4@m">
+                            <p>Genero</p>
+                            <select asp-for="IdGeneroAnime" class="uk-select uk-form-width-large" asp-items="ViewBag.IdGeneroAnime"></select>
+                        </div>
+                        <div class="uk-width-1-4@m">
+                            <p>Estado</p>
+                            <select asp-for="IdEstadoSerie" class="uk-select uk-form-width-large" asp-items="ViewBag.IdEstadoSerie"></select>
+                        </div>
+                        <div class="uk-width-1-2@m">
+                            <p>Otros Generos</p>
+                            <div class="uk-inline">
+                                <span class="uk-form-icon" uk-icon="icon: tag"></span>
+                                <input asp-for="OtrosGeneros" class="uk-input uk-width-xlarge" />
+                            </div>
+                            <span asp-validation-for="OtrosGeneros" class="text-danger"></span>
+                        </div>
+                        <div class="uk-width-1-2@m">
+                            <p>Sinopsis</p>
+                            <div class="uk-inline">
+                                <span class="uk-form-icon" uk-icon="icon: info"></span>
+                                <input asp-for="Sinopsis" class="uk-textarea uk-height-medium uk-width-xlarge" />
+                            </div>
+                            <span asp-validation-for="Sinopsis" class="text-danger"></span>
+                        </div>
+                        <div class="uk-width-1-2@m">
+                            <p>Imagen</p>
+                            <div class="box">
+                                <img id="imagen_vprevia" runat="server" src="~/img/Sharky.jpg">
+                            </div>
+                            <div uk-form-custom="target: true">
+                                <input type="file" asp-for="Imagen" onchange="VPrevia(this)">
+                                <input class="uk-input uk-width-xlarge" type="text" placeholder="Seleccionar Archivo" disabled>
+                            </div>
+                            <span asp-validation-for="Imagen" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="uk-width-1-1">
+                                <div class="uk-inline uk-position-bottom-center uk-position-relative">
+                                    <span class="uk-form-icon" uk-icon="icon: plus"></span>
+                                    <input type="submit" value="Crear anime" class="uk-button uk-button-secondary uk-button-large uk-width-1-1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
+
 </div>
 
 <div>

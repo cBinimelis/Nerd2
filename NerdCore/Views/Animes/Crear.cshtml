@@ -7,6 +7,150 @@
 <h1>Create</h1>
 
 <h4>Anime</h4>
+<div class="uk-section-default uk-margin">
+    <div class="uk-section">
+        <div class="uk-container">
+            <div class="uk-card uk-card-secondary">
+                <h1 class="uk-heading-line uk-text-center uk-padding">Mantenedor de Anime</h1>
+                <asp:Label ID="lbl_idPendiente" runat="server" Text="Label" Visible="false"></asp:Label>
+                <asp:Label ID="lbl_hayPendientes" runat="server" Text="Label" Visible="false"></asp:Label>
+                <div class="uk-card-body" uk-grid>
+                    <div class="uk-width-1-2@m">
+                        <p>Nombre</p>
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: bookmark"></span>
+                            <asp:TextBox ID="txt_nombreN" autocomplete="off" CssClass="uk-input uk-width-xlarge" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-6@m">
+                        <p>Lanzamiento</p>
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+                            <asp:TextBox ID="txt_lanzamientoN" TextMode="Date" CssClass="uk-input uk-form-width-large" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-6@m">
+                        <p>Capitulos</p>
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: tv"></span>
+                            <asp:TextBox ID="txt_capitulosN" autocomplete="off" CssClass="uk-input uk-form-width-large" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-6@m">
+                        <p>Temporadas</p>
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: world"></span>
+                            <asp:TextBox ID="txt_temporadasN" autocomplete="off" CssClass="uk-input uk-form-width-large" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-4@m">
+                        <p>Estado</p>
+                        <div class="uk-inline">
+                            <asp:DropDownList ID="dd_estadoN" CssClass="uk-select uk-form-width-large" runat="server" ForeColor="#999999"></asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-4@m">
+                        <p>Genero <a class="uk-icon-link uk-margin-left-small" uk-icon="plus" href="#modal-genero" uk-tooltip="title: Agregar Genero" uk-toggle></a></p>
+                        <div class="uk-inline">
+                            <asp:DropDownList ID="dd_generoN" CssClass="uk-select uk-form-width-large" runat="server" ForeColor="#999999"></asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-2@m">
+                        <p>Otros Generos</p>
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: tag"></span>
+                            <asp:TextBox ID="txt_OGenerosN" autocomplete="off" CssClass="uk-input uk-width-xlarge" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-2@m">
+                        <p>Sinopsis</p>
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: info"></span>
+                            <asp:TextBox ID="txt_sinopsisN" CssClass="uk-textarea uk-height-medium uk-width-xlarge" runat="server" TextMode="MultiLine"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-2@m">
+                        <p>Imagen</p>
+                        <img id="imagen_vprevia" runat="server" src="~/img/Sharky.jpg">
+                        <asp:FileUpload ID="subir_imagen" CssClass="uk-input uk-width-auto" placeholder="Seleccionar Archivo" runat="server" onchange="VPrevia(this)" />
+                    </div>
+                    <div class="uk-width-1-1">
+                        <div class="uk-inline uk-position-bottom-center uk-position-relative">
+                            <span class="uk-form-icon" uk-icon="icon: plus"></span>
+                            <asp:Button ID="btn_crear" CssClass="uk-button uk-button-secondary uk-button-large uk-width-1-1" runat="server" Text="Crear Anime" OnClick="btn_crear_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Nombre" class="control-label"></label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Sinopsis" class="control-label"></label>
+                            <input asp-for="Sinopsis" class="form-control" />
+                            <span asp-validation-for="Sinopsis" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Lanzamiento" class="control-label"></label>
+                            <input asp-for="Lanzamiento" class="form-control" />
+                            <span asp-validation-for="Lanzamiento" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Temporadas" class="control-label"></label>
+                            <input asp-for="Temporadas" class="form-control" />
+                            <span asp-validation-for="Temporadas" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CapitulosTotales" class="control-label"></label>
+                            <input asp-for="CapitulosTotales" class="form-control" />
+                            <span asp-validation-for="CapitulosTotales" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Imagen" class="control-label"></label>
+                            <input asp-for="Imagen" class="form-control" />
+                            <span asp-validation-for="Imagen" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IdGeneroAnime" class="control-label"></label>
+                            <select asp-for="IdGeneroAnime" class="form-control" asp-items="ViewBag.IdGeneroAnime"></select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OtrosGeneros" class="control-label"></label>
+                            <input asp-for="OtrosGeneros" class="form-control" />
+                            <span asp-validation-for="OtrosGeneros" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IdEstadoSerie" class="control-label"></label>
+                            <select asp-for="IdEstadoSerie" class="form-control" asp-items="ViewBag.IdEstadoSerie"></select>
+                        </div>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="Activo" /> @Html.DisplayNameFor(model => model.Activo)
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -44,7 +188,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="IdGeneroAnime" class="control-label"></label>
-                <select asp-for="IdGeneroAnime" class ="form-control" asp-items="ViewBag.IdGeneroAnime"></select>
+                <select asp-for="IdGeneroAnime" class="form-control" asp-items="ViewBag.IdGeneroAnime"></select>
             </div>
             <div class="form-group">
                 <label asp-for="OtrosGeneros" class="control-label"></label>
@@ -53,7 +197,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="IdEstadoSerie" class="control-label"></label>
-                <select asp-for="IdEstadoSerie" class ="form-control" asp-items="ViewBag.IdEstadoSerie"></select>
+                <select asp-for="IdEstadoSerie" class="form-control" asp-items="ViewBag.IdEstadoSerie"></select>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">

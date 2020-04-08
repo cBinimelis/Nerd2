@@ -686,6 +686,19 @@ ul {
 .card-bg:hover label {
 }
 
+form option{
+    background-color:#393939;
+}
 
-
+.box {
+    max-height: 260px;
+    min-width: 520px;
+    overflow: hidden;
+}
+    .box img {
+        max-width: 100%;
+        max-height: 100%;
+        position:static;
+        display: block;
+    }
 

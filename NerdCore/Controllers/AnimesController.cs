@@ -49,7 +49,8 @@ namespace NerdCore.Views
         // GET: Animes/Create
         public IActionResult Create()
         {
-            if (HttpContext.Session.GetString("user_ID") != null)
+            //if (HttpContext.Session.GetString("user_ID") != null)
+            if (0== 0)
             {
                 ViewBag.Nerd = Convert.ToInt32(HttpContext.Session.GetString("user_ID"));
                 ViewData["IdEstadoSerie"] = new SelectList(_context.EstadoSerie, "IdEstadoSerie", "Descripcion");
