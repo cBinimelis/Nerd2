@@ -3,11 +3,11 @@
 @{
     ViewData["Title"] = "Create";
 }
-    <br />
+<br />
 <div class="uk-section-default uk-margin">
     <div class="uk-section">
         <div class="uk-container">
-            <form asp-action="Create">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
                 <div class="uk-card uk-card-secondary uk-card-hover">
                     <h1 class="uk-heading-line uk-text-center uk-padding">Mantenedor de Anime</h1>
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -16,7 +16,7 @@
                             <p>Nombre</p>
                             <div class="uk-inline">
                                 <span class="uk-form-icon" uk-icon="icon: bookmark"></span>
-                                <input asp-for="Nombre" class="uk-input uk-width-xxlarge" />
+                                <input asp-for="Nombre" autocomplete="off" class="uk-input uk-width-xxlarge" />
                             </div>
                             <span asp-validation-for="Lanzamiento" class="text-danger"></span>
                         </div>
@@ -56,7 +56,7 @@
                             <p>Otros Generos</p>
                             <div class="uk-inline">
                                 <span class="uk-form-icon" uk-icon="icon: tag"></span>
-                                <input asp-for="OtrosGeneros" class="uk-input uk-width-xlarge" />
+                                <input asp-for="OtrosGeneros" autocomplete="off" class="uk-input uk-width-xlarge" />
                             </div>
                             <span asp-validation-for="OtrosGeneros" class="text-danger"></span>
                         </div>
@@ -64,7 +64,7 @@
                             <p>Sinopsis</p>
                             <div class="uk-inline">
                                 <span class="uk-form-icon" uk-icon="icon: info"></span>
-                                <input asp-for="Sinopsis" class="uk-textarea uk-height-medium uk-width-xlarge" />
+                                <textarea asp-for="Sinopsis" autocomplete="off" class="uk-input uk-height-medium uk-width-xlarge" rows="10"></textarea>
                             </div>
                             <span asp-validation-for="Sinopsis" class="text-danger"></span>
                         </div>
@@ -74,7 +74,7 @@
                                 <img id="imagen_vprevia" runat="server" src="~/img/Sharky.jpg">
                             </div>
                             <div uk-form-custom="target: true">
-                                <input type="file" asp-for="Imagen" onchange="VPrevia(this)">
+                                <input type="file" name="file" asp-for="Imagen" onchange="VPrevia(this)">
                                 <input class="uk-input uk-width-xlarge" type="text" placeholder="Seleccionar Archivo" disabled>
                             </div>
                             <span asp-validation-for="Imagen" class="text-danger"></span>
@@ -98,6 +98,18 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+@if (@ViewBag.Warning != null)
+{
+    <script type="text/javascript">
+                     Swal.fire(
+                    '¡Alto ahí!',
+                    '@ViewBag.Warning',
+                    'warning'
+                )
+    </script>
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

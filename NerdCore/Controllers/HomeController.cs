@@ -25,6 +25,8 @@ namespace NerdCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                string controller = TempData["CONTROLLER"].ToString();
+                string action = TempData["ACTION"].ToString();
                 using (NerdCoreContext db = new NerdCoreContext())
                 {
                     var obj = db.Usuario.Where(a => a.Nick.Equals(objUser.Nick) && a.Password.Equals(objUser.Password)).FirstOrDefault();
@@ -36,7 +38,14 @@ namespace NerdCore.Controllers
                         nerd.IdNerdUser = Convert.ToInt32(id);
                         nerd.NickNerdUser = obj.Nick;
                         TempData["NERD_USER"] = id;
-                        return RedirectToAction("Index");
+                        if (action == null)
+                        {
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            return RedirectToAction(action, controller);
+                        }
                     }
                     else
                     {

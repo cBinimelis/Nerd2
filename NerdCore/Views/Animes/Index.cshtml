@@ -9,3 +9,14 @@
 <component type="typeof(AnimeList)" render-mode="ServerPrerendered" param-Nerd="@Nerd" />
 <script src="_framework/blazor.server.js"></script>
 
+
+@if (@ViewBag.Success != null)
+{
+    <script type="text/javascript">
+                     Swal.fire(
+                    '¡Felicidades!',
+                    '@ViewBag.Success',
+                    'success'
+                )
+    </script>
+}

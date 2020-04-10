@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using NerdCore.Models;
 using NerdCore.Data;
 using Microsoft.AspNetCore.Http;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace NerdCore.Views
 {
@@ -22,6 +24,7 @@ namespace NerdCore.Views
         // GET: Animes
         public async Task<IActionResult> Index()
         {
+            ViewBag.Success = TempData["Success"];
             ViewBag.Nerd = Convert.ToInt32(HttpContext.Session.GetString("user_ID"));
             var nerdCoreContext = _context.Anime.Include(a => a.IdEstadoSerieNavigation).Include(a => a.IdGeneroAnimeNavigation);
             return View(await nerdCoreContext.ToListAsync());
@@ -49,8 +52,7 @@ namespace NerdCore.Views
         // GET: Animes/Create
         public IActionResult Create()
         {
-            //if (HttpContext.Session.GetString("user_ID") != null)
-            if (0== 0)
+            if (HttpContext.Session.GetString("user_ID") != null)
             {
                 ViewBag.Nerd = Convert.ToInt32(HttpContext.Session.GetString("user_ID"));
                 ViewData["IdEstadoSerie"] = new SelectList(_context.EstadoSerie, "IdEstadoSerie", "Descripcion");
@@ -59,6 +61,8 @@ namespace NerdCore.Views
             }
             else
             {
+                TempData["CONTROLLER"] = "Animes";
+                TempData["ACTION"] = "Create";
                 return RedirectToAction("Login", "Home");
             }
         }
@@ -68,13 +72,51 @@ namespace NerdCore.Views
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdAnime,Nombre,Sinopsis,Lanzamiento,Temporadas,CapitulosTotales,Imagen,IdGeneroAnime,OtrosGeneros,IdEstadoSerie,Activo")] Anime anime)
+        public async Task<IActionResult> Create([Bind("IdAnime,Nombre,Sinopsis,Lanzamiento,Temporadas,CapitulosTotales,Imagen,IdGeneroAnime,OtrosGeneros,IdEstadoSerie,Activo")] Anime anime, IFormFile file)
         {
-            if (ModelState.IsValid)
+            bool fileOK = false;
+            var fileName = Regex.Replace(anime.Nombre.ToLower(), @"[^0-9a-zA-Z_]+", "");
+            string path = Path.Combine("wwwroot/img/anime/");
+            string fileExtension = Path.GetExtension(file.FileName);
+            string[] allowedExtensions = { ".jpeg", ".jpg", ".JPEG", ".JPG" };
+            string defName;
+            if (fileName != null)
             {
-                _context.Add(anime);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                for (int i = 0; i < allowedExtensions.Length; i++)
+                {
+                    if (fileExtension == allowedExtensions[i])
+                    {
+                        fileOK = true;
+                    }
+                }
+            }
+
+            if (fileOK)
+            {
+                defName = fileName + fileExtension;
+                if (System.IO.File.Exists(fileName))
+                {
+                    System.IO.File.Delete(fileName);
+                }
+
+                using (var localFile = System.IO.File.OpenWrite(path + fileName + fileExtension))
+                using (var uploadedFile = file.OpenReadStream())
+                {
+                    uploadedFile.CopyTo(localFile);
+                }
+
+                if (ModelState.IsValid)
+                {
+                    anime.Imagen = defName;
+                    anime.Activo = true;
+                    _context.Add(anime);
+                    await _context.SaveChangesAsync();
+                    TempData["Success"] = "Se ha creado con éxito un nuevo anime";
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["IdEstadoSerie"] = new SelectList(_context.EstadoSerie, "IdEstadoSerie", "Descripcion", anime.IdEstadoSerie);
+                ViewData["IdGeneroAnime"] = new SelectList(_context.GeneroAnime, "IdGeneroAnime", "Descripcion", anime.IdGeneroAnime);
+                return View(anime);
             }
             ViewData["IdEstadoSerie"] = new SelectList(_context.EstadoSerie, "IdEstadoSerie", "Descripcion", anime.IdEstadoSerie);
             ViewData["IdGeneroAnime"] = new SelectList(_context.GeneroAnime, "IdGeneroAnime", "Descripcion", anime.IdGeneroAnime);
@@ -103,6 +145,8 @@ namespace NerdCore.Views
             }
             else
             {
+                TempData["CONTROLLER"] = "Animes";
+                TempData["ACTION"] = "Edit";
                 return RedirectToAction("Login", "Home");
             }
         }
