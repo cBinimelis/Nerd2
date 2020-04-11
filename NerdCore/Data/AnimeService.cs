@@ -70,5 +70,35 @@ namespace NerdCore.Data
             _db.SaveChanges();
             return true;
         }
+
+        public List<VJuegos> GetJuegos()
+        {
+            var Lista = _db.VJuegos.OrderBy(x => x.Nombre).ToList();
+            return Lista;
+        }
+
+        public List<VManga> GetMangas()
+        {
+            var Lista = _db.VManga.OrderBy(x => x.Nombre).ToList();
+            return Lista;
+        }
+
+        public List<VSeries> GetSeries()
+        {
+            var Lista = _db.VSeries.OrderBy(x => x.Nombre).ToList();
+            return Lista;
+        }
+
+        public List<VPelicula> GetPeliculas()
+        {
+            var Lista = _db.VPelicula.OrderBy(x => x.Nombre).ToList();
+            return Lista;
+        }
+
+        public List<VLibros> GetLibros()
+        {
+            var Lista = _db.VLibros.OrderBy(x => x.Nombre).ToList();
+            return Lista;
+        }
     }
 }

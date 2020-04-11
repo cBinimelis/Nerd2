@@ -49,7 +49,7 @@ namespace NerdCore.Controllers
                     }
                     else
                     {
-                        ViewBag.Message ="Ha habido un problema en el inicio de sesión";
+                        ViewBag.Message = "Ha habido un problema en el inicio de sesión";
                     }
                 }
             }

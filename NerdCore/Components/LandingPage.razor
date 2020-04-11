@@ -56,6 +56,70 @@
                 </div>
             </div>
         }
+
+        <div class="uk-child-width-1-6@l uk-child-width-1-2@s uk-text-center uk-grid-collapse uk-flex-center" uk-grid>
+            <div>
+                <div class="uk-background-muted">
+                    <a href="Animes" class="uk-link-reset">
+                        <div class="uk-card uk-card-hover uk-card-body uk-text-center">
+                            <label class="count uk-heading-primary">@TAnime</label>
+                            <p>Animes</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <div class="uk-background-muted">
+                    <a href="Animes" class="uk-link-reset">
+                        <div class="uk-card uk-card-hover uk-card-body uk-text-center">
+                            <label class="count uk-heading-primary">@TJuegos</label>
+                            <p>Juegos</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <div class="uk-background-muted">
+                    <a href="Animes" class="uk-link-reset">
+                        <div class="uk-card uk-card-hover uk-card-body uk-text-center">
+                            <label class="count uk-heading-primary">@TMangas</label>
+                            <p>Mangas</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <div class="uk-background-muted">
+                    <a href="Animes" class="uk-link-reset">
+                        <div class="uk-card uk-card-hover uk-card-body uk-text-center">
+                            <label class="count uk-heading-primary">@TSeries</label>
+                            <p>Series</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <div class="uk-background-muted">
+                    <a href="Animes" class="uk-link-reset">
+                        <div class="uk-card uk-card-hover uk-card-body uk-text-center">
+                            <label class="count uk-heading-primary">@TPeliculas</label>
+                            <p>Peliculas</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <div class="uk-background-muted">
+                    <a href="Animes" class="uk-link-reset">
+                        <div class="uk-card uk-card-hover uk-card-body uk-text-center">
+                            <label class="count uk-heading-primary">@TLibros</label>
+                            <p>Libros</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -67,14 +131,30 @@
     int TPeliculas = 0;
     int TLibros = 0;
     List<VAnime> aniObj;
+    List<VJuegos> jueObj;
+    List<VManga> manObj;
+    List<VSeries> serObj;
+    List<VPelicula> pelObj;
+    List<VLibros> libObj;
+
     protected override async Task OnInitializedAsync()
     {
         aniObj = await Task.Run(() => objAnime.GetAnimes());
+        jueObj = await Task.Run(() => objAnime.GetJuegos());
+        manObj = await Task.Run(() => objAnime.GetMangas());
+        serObj = await Task.Run(() => objAnime.GetSeries());
+        pelObj = await Task.Run(() => objAnime.GetPeliculas());
+        libObj = await Task.Run(() => objAnime.GetLibros());
         contar();
     }
 
     private void contar()
     {
         TAnime = aniObj.Count();
+        TJuegos = jueObj.Count();
+        TMangas = manObj.Count();
+        TSeries = serObj.Count();
+        TPeliculas = pelObj.Count();
+        TLibros = libObj.Count();
     }
 }
