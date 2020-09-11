@@ -131,13 +131,13 @@ namespace NerdCore.Views
                 ViewBag.Nerd = Convert.ToInt32(HttpContext.Session.GetString("user_ID"));
                 if (id == null)
                 {
-                    return NotFound();
+                    return RedirectToAction(nameof(Index));
                 }
 
                 var anime = await _context.Anime.FindAsync(id);
                 if (anime == null)
                 {
-                    return NotFound();
+                    return RedirectToAction(nameof(Index));
                 }
                 ViewData["IdEstadoSerie"] = new SelectList(_context.EstadoSerie, "IdEstadoSerie", "Descripcion", anime.IdEstadoSerie);
                 ViewData["IdGeneroAnime"] = new SelectList(_context.GeneroAnime, "IdGeneroAnime", "Descripcion", anime.IdGeneroAnime);

@@ -24,7 +24,7 @@
             <div class="uk-card-body uk-overflow-auto">
                 <div class="uk-grid" uk-flex>
                     <div class="uk-search uk-search-default uk-width-1-2">
-                        <div class="uk-inline uk-width-1-2">
+                        <div class="uk-inline">
                             <span uk-search-icon></span>
                             <input class="uk-search-input" placeholder="Escribe para empezar a buscar" @bind-value="BuscarAnime" @bind-value:event="oninput" />
                         </div>
@@ -39,11 +39,11 @@
                     <table class="uk-table  uk-table-middle uk-table-divider">
                         <thead>
                             <tr>
-                                <th class="uk-width-medium">Nombre de la Serie</th>
-                                <th>Lanzamiento</th>
-                                <th>Capitulos</th>
-                                <th>Genero</th>
-                                <th>Estado</th>
+                                <th class="uk-width-medium">Nombre</th>
+                                <th class="uk-visible@m">Lanzamiento</th>
+                                <th class="uk-visible@m">Capitulos</th>
+                                <th class="uk-visible@m">Genero</th>
+                                <th class="uk-visible@m">Estado</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -57,8 +57,8 @@
                                     <td class="uk-visible@m">@anime.Capitulos </td>
                                     <td class="uk-visible@m"> @anime.Genero </td>
                                     <td class="uk-visible@m"> @anime.Estado </td>
-                                    <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
-                                    <td style="@ShowAdded(anime.IdAnime)"><a style="color:white" class="btn--add uk-button" @onclick="(e=>AddAnime(anime.IdAnime))">Agregar</a></td>
+                                    <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button uk-button-small" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
+                                    <td style="@ShowAdded(anime.IdAnime)"><a style="color:white" class="btn--add uk-button uk-button-small" @onclick="(e=>AddAnime(anime.IdAnime))">Agregar</a></td>
                                 </tr>
                             }
                         </tbody>
