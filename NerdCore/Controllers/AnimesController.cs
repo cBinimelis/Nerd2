@@ -21,6 +21,7 @@ namespace NerdCore.Views
         {
             _context = context;
         }
+
         // GET: Animes
         public async Task<IActionResult> Index()
         {

@@ -7,26 +7,29 @@ using NerdCore.Models;
 
 namespace NerdCore.Data
 {
-    public class AnimeService
+    public class ItemService
     {
         private readonly NerdCoreContext _db;
 
 
-        public AnimeService(NerdCoreContext db)
+        public ItemService(NerdCoreContext db)
         {
             _db = db;
         }
 
 
+        //-----------------------ANIMES-----------------------------
+
+
         //Listar Todos los Animes
         public List<VAnime> GetAnimes()
         {
-            var Lista = _db.VAnime.OrderBy(x=>x.Nombre).ToList();
+            var Lista = _db.VAnime.OrderBy(x => x.Nombre).ToList();
             return Lista;
         }
 
         //Insertar Animes
-        public string Create(Anime anime)
+        public string CreateAnime(Anime anime)
         {
             _db.Anime.Add(anime);
             _db.SaveChanges();
@@ -41,7 +44,7 @@ namespace NerdCore.Data
         }
 
         //Actualizar Anime
-        public string ActualizarAnime(VAnime anime)
+        public string UpdateAnime(VAnime anime)
         {
             _db.VAnime.Update(anime);
             _db.SaveChanges();
@@ -49,7 +52,7 @@ namespace NerdCore.Data
         }
 
         //Eliminar Anime
-        public string EliminarAni(VAnime anime)
+        public string DeleteAnime(VAnime anime)
         {
             _db.Remove(anime);
             _db.SaveChanges();
@@ -57,7 +60,7 @@ namespace NerdCore.Data
         }
 
         //Listar Usuario actual
-        public List<AnimeUsuario> GetUser()
+        public List<AnimeUsuario> GetAniUser()
         {
             var ListaU = _db.AnimeUsuario.ToList();
             return ListaU;
@@ -71,18 +74,69 @@ namespace NerdCore.Data
             return true;
         }
 
+
+        //-----------------------JUEGOS-----------------------------
         public List<VJuegos> GetJuegos()
         {
             var Lista = _db.VJuegos.OrderBy(x => x.Nombre).ToList();
             return Lista;
         }
 
+        //-----------------------MANGAS-----------------------------
         public List<VManga> GetMangas()
         {
             var Lista = _db.VManga.OrderBy(x => x.Nombre).ToList();
             return Lista;
         }
 
+        //Insertar Animes
+        public string CreateManga(Anime anime)
+        {
+            _db.Anime.Add(anime);
+            _db.SaveChanges();
+            return "Guardado Exitoso";
+        }
+
+        //Identificar Anime Segun ID
+        public VAnime GetManga(int ID)
+        {
+            VAnime anime = _db.VAnime.FirstOrDefault(s => s.IdAnime == ID);
+            return anime;
+        }
+
+        //Actualizar Anime
+        public string UpdateManga(VAnime anime)
+        {
+            _db.VAnime.Update(anime);
+            _db.SaveChanges();
+            return "Actualización Exitosa";
+        }
+
+        //Eliminar Anime
+        public string DeleteManga(VAnime anime)
+        {
+            _db.Remove(anime);
+            _db.SaveChanges();
+            return "Eliminacion completa";
+        }
+        //Listar Usuario actual
+        public List<MangaUsuario> GetManUser()
+        {
+            var ListaU = _db.MangaUsuario.ToList();
+            return ListaU;
+        }
+
+        //CrearAnimeUsuario
+        public bool CreateMU(MangaUsuario mangaU)
+        {
+            _db.MangaUsuario.Add(mangaU);
+            _db.SaveChanges();
+            return true;
+        }
+
+
+
+        //-----------------------SERIES -----------------------------
         public List<VSeries> GetSeries()
         {
             var Lista = _db.VSeries.OrderBy(x => x.Nombre).ToList();

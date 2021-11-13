@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NerdCore.Models;
+using NerdCore.Data;
+using Microsoft.AspNetCore.Http;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace NerdCore.Views
 {
@@ -21,6 +25,8 @@ namespace NerdCore.Views
         // GET: Mangas
         public async Task<IActionResult> Index()
         {
+            ViewBag.Success = TempData["Success"];
+            ViewBag.Nerd = Convert.ToInt32(HttpContext.Session.GetString("user_ID"));
             var nerdCoreContext = _context.Manga.Include(m => m.IdEstadoMangaNavigation).Include(m => m.IdGeneroMangaNavigation);
             return View(await nerdCoreContext.ToListAsync());
         }

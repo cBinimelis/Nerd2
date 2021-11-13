@@ -3,15 +3,15 @@
 @using NerdCore.Data
 @using Microsoft.JSInterop
 @inject IJSRuntime jsRuntime
-@inject ItemService objAnime
-@inject ItemService userAnime
+@inject ItemService objManga
+@inject ItemService userManga
 @inject NavigationManager NavigationManager
 
 <div class="uk-section-default">
-    <div id="test-filter" class="uk-section uk-light uk-background-cover uk-overflow-hidden uk-flex uk-flex-top" uk-parallax="bgy: -100; sepia: 100;" style="background-image: url(../img/AnimeGuestBG.jpg); height: 70vh">
+    <div id="test-filter" class="uk-section uk-light uk-background-cover uk-overflow-hidden uk-flex uk-flex-top" uk-parallax="bgy: -100; sepia: 100;" style="background-image: url(../img/MangaGuestBG.jpg); height: 70vh">
         <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical" uk-parallax="target: #test-filter; blur: 0,10;">
             <div class="uk-overlay uk-overlay-primary uk-width-medium">
-                <h1>Anime</h1>
+                <h1>Manga</h1>
             </div>
         </div>
     </div>
@@ -26,14 +26,14 @@
                     <div class="uk-search uk-search-default uk-width-1-2">
                         <div class="uk-inline">
                             <span uk-search-icon></span>
-                            <input class="uk-search-input" placeholder="Escribe para empezar a buscar" @bind-value="BuscarAnime" @bind-value:event="oninput" />
+                            <input class="uk-search-input" placeholder="Escribe para empezar a buscar" @bind-value="BuscarManga" @bind-value:event="oninput" />
                         </div>
                     </div>
                     <div class="uk-width-1-2" style="@CheckLogin()">
-                        <a href="Animes/Create" class="btn--add uk-button">crear</a>
+                        <a href="Mangas/Create" class="btn--add uk-button">crear</a>
                     </div>
                 </div>
-                @if (aniObj != null)
+                @if (mangaObj != null)
                 {
                     int TotPages = NumberOfPages();
                     <table class="uk-table  uk-table-middle uk-table-divider">
@@ -49,16 +49,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var anime in GetItemsToShow())
+                            @foreach (var Manga in GetItemsToShow())
                             {
                                 <tr>
-                                    <td class="uk-text-truncate">@anime.Nombre</td>
-                                    <td class="uk-visible@m"> @anime.Lanzamiento </td>
-                                    <td class="uk-visible@m">@anime.Capitulos </td>
-                                    <td class="uk-visible@m"> @anime.Genero </td>
-                                    <td class="uk-visible@m"> @anime.Estado </td>
-                                    <td><a data-toggle="modal" data-target="#animeModal" class="btn--ver uk-button uk-button-small" style="color:white" @onclick="(e => SelectAnime(anime.IdAnime))">ver</a></td>
-                                    <td style="@ShowAdded(anime.IdAnime)"><a style="color:white" class="btn--add uk-button uk-button-small" @onclick="(e=>AddAnime(anime.IdAnime))">Agregar</a></td>
+                                    <td class="uk-text-truncate">@Manga.Nombre</td>
+                                    <td class="uk-visible@m"> @Manga.Lanzamiento </td>
+                                    <td class="uk-visible@m">@Manga.Tomos </td>
+                                    <td class="uk-visible@m"> @Manga.Genero </td>
+                                    <td class="uk-visible@m"> @Manga.Estado </td>
+                                    <td><a data-toggle="modal" data-target="#MangaModal" class="btn--ver uk-button uk-button-small" style="color:white" @onclick="(e => SelectManga(Manga.IdManga))">ver</a></td>
+                                    <td style="@ShowAdded(Manga.IdManga)"><a style="color:white" class="btn--add uk-button uk-button-small" @onclick="(e=>AddManga(Manga.IdManga))">Agregar</a></td>
                                 </tr>
                             }
                         </tbody>
@@ -84,25 +84,25 @@
 </div>
 
 
-@if (selectedAnime != null)
+@if (selectedManga != null)
 {
-    int ID = @selectedAnime.IdAnime;
+    int ID = @selectedManga.IdManga;
 
-    <!--Modal: Anime-->
+    <!--Modal: Manga-->
 
-    <div class="modal fade" id="animeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="MangaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="card bg-dark text-white">
-                    <img style="opacity:30" src="img/anime/@selectedAnime.Imagen" class="card-img" alt="...">
+                    <img style="opacity:30" src="img/Manga/@selectedManga.Imagen" class="card-img" alt="...">
                     <div class="card-img-overlay uk-overlay-primary">
-                        <h2 class="uk-light">@selectedAnime.Nombre</h2>
-                        <p class="card-text">@selectedAnime.Sinopsis</p>
+                        <h2 class="uk-light">@selectedManga.Nombre</h2>
+                        <p class="card-text">@selectedManga.Sinopsis</p>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a style="@ShowAdded(ID); color:white" class="btn--add uk-button" @onclick="(e=>AddAnime(ID))">Agregar</a>
+                    <a style="@ShowAdded(ID); color:white" class="btn--add uk-button" @onclick="(e=>AddManga(ID))">Agregar</a>
                     <a @onclick="(e => ShowDetails(ID))" class="btn--detalles uk-button" style="color:white">Ver</a>
                 </div>
             </div>
@@ -115,10 +115,10 @@
 
 @code {
 
-    List<VAnime> aniObj;
-    List<AnimeUsuario> aniUser;
+    List<VManga> mangaObj;
+    List<MangaUsuario> mangaUser;
     int CurrentPage { get; set; } = 1;
-    string BuscarAnime { get; set; } = "";
+    string BuscarManga { get; set; } = "";
     int RecordsPerPage = 20;
     int TotalPages = 0;
 
@@ -127,24 +127,24 @@
 
     protected override async Task OnInitializedAsync()
     {
-        aniObj = await Task.Run(() => objAnime.GetAnimes());
-        aniUser = await Task.Run(() => userAnime.GetAniUser());
+        mangaObj = await Task.Run(() => objManga.GetMangas());
+        mangaUser = await Task.Run(() => userManga.GetManUser());
     }
 
 
 
-    VAnime selectedAnime;
-    int selectedAnimeId;
+    VManga selectedManga;
+    int selectedMangaId;
 
-    void SelectAnime(int AnimeId)
+    void SelectManga(int MangaId)
     {
-        selectedAnimeId = AnimeId;
-        selectedAnime = aniObj.First(x => x.IdAnime == AnimeId);
+        selectedMangaId = MangaId;
+        selectedManga = mangaObj.First(x => x.IdManga == MangaId);
     }
 
     private void ShowDetails(int ID)
     {
-        NavigationManager.NavigateTo("Animes/Details/" + ID, true);
+        NavigationManager.NavigateTo("Mangas/Details/" + ID, true);
     }
 
     void MoveNext()
@@ -192,11 +192,11 @@
 
     string ShowAdded(int id)
     {
-        if (aniUser != null && Nerd != 0)
+        if (mangaUser != null && Nerd != 0)
         {
-            foreach (var user in aniUser)
+            foreach (var user in mangaUser)
             {
-                if (user.IdAnime == id && user.IdUsuario == Nerd)
+                if (user.IdManga == id && user.IdUsuario == Nerd)
                 {
                     return "display:none";
                 }
@@ -224,29 +224,29 @@
 
     int NumberOfPages()
     {
-        TotalPages = (int)(Math.Ceiling(((double)aniObj.Count / (double)RecordsPerPage)));
+        TotalPages = (int)(Math.Ceiling(((double)mangaObj.Count / (double)RecordsPerPage)));
         return TotalPages;
     }
 
-    List<VAnime> GetItemsToShow()
+    List<VManga> GetItemsToShow()
     {
-        List<VAnime> filterAnime = aniObj.Where(i => i.Nombre.ToLower().Contains(BuscarAnime.ToLower())).ToList();
+        List<VManga> filterManga = mangaObj.Where(i => i.Nombre.ToLower().Contains(BuscarManga.ToLower())).ToList();
         int skip = (CurrentPage - 1) * RecordsPerPage;
-        return filterAnime.Skip(skip).Take(RecordsPerPage).ToList();
+        return filterManga.Skip(skip).Take(RecordsPerPage).ToList();
     }
 
 
-    private async void AddAnime(int ID)
+    private async void AddManga(int ID)
     {
-        AnimeUsuario AU = new AnimeUsuario()
+        MangaUsuario MU = new MangaUsuario()
         {
-            IdAnime = ID,
+            IdManga = ID,
             IdUsuario = Nerd,
-            IdAvanceAnime = 1,
+            IdAvanceManga = 1,
             Nota = "Sin notas adjuntas"
         };
-        aniUser.Add(AU);
-        if (objAnime.CreateAU(AU))
+        mangaUser.Add(MU);
+        if (objManga.CreateMU(MU))
         {
             await jsRuntime.InvokeVoidAsync("AUAdded");
         }

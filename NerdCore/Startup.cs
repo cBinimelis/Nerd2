@@ -33,7 +33,7 @@ namespace NerdCore
             services.AddRazorPages();
             services.AddControllers();
             services.AddServerSideBlazor();
-            services.AddScoped<AnimeService>();
+            services.AddScoped<ItemService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddDbContext<NerdCoreContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("NerdCoreContextConnection")));
